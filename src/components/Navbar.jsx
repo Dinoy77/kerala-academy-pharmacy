@@ -7,10 +7,8 @@ const utilityLinks = [
   { label: "Contact", to: "/contact" },
   { label: "Career", to: "/career" },
   { label: "FAQ", to: "/faq" },
+  { label: "Travel Information", to: "/travel-information" },
 ];
-
-const travelInfoHref =
-  "https://kap.ac.in/assets/images/travel%20information.pdf";
 
 const mainLinks = [
   { label: "Home", to: "/" },
@@ -39,9 +37,6 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <a href={travelInfoHref} target="_blank" rel="noreferrer">
-            Travel Information
-          </a>
         </div>
         <div className="navbar-helpline">Helpline: +91-8951220590</div>
       </div>

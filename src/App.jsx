@@ -25,6 +25,10 @@ function App() {
         <Route path="/contact" element={<Placeholder title="Contact" />} />
         <Route path="/career" element={<Placeholder title="Career" />} />
         <Route path="/faq" element={<Placeholder title="FAQ" />} />
+        <Route
+          path="/travel-information"
+          element={<Placeholder title="Travel Information" />}
+        />
         <Route path="/apply" element={<Placeholder title="Apply Now" />} />
       </Routes>
     </div>
