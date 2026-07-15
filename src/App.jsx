@@ -2,13 +2,14 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Placeholder from "./components/Placeholder";
 import "./App.css";
+import Home from "./components/Home";
 
 function App() {
   return (
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="/" element={<Placeholder title="Home" />} />
+        <Route path="/" element={<Home />} />
         <Route path="/about" element={<Placeholder title="About" />} />
         <Route path="/why-kap" element={<Placeholder title="Why KAP" />} />
         <Route path="/academics" element={<Placeholder title="Academics" />} />
