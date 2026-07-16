@@ -1,8 +1,15 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Placeholder from "./components/Placeholder";
-import "./App.css";
 import Home from "./components/Home";
+import Footer from "./components/Footer";
+import About from "./components/About";
+import Chairman from "./components/Chairman";
+import PrincipalMessage from "./components/PrincipalMessage";
+import VisionMission from "./components/VisionMission";
+import Pharmacy from "./components/Pharmacy";
+import Career from "./components/Career";
+import "./App.css";
 
 function App() {
   return (
@@ -10,7 +17,10 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<Placeholder title="About" />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/about/chairman" element={<Chairman />} />
+        <Route path="/about/principal" element={<PrincipalMessage />} />
+        <Route path="/about/vision-mission" element={<VisionMission />} />
         <Route path="/why-kap" element={<Placeholder title="Why KAP" />} />
         <Route path="/academics" element={<Placeholder title="Academics" />} />
         <Route path="/admission" element={<Placeholder title="Admission" />} />
@@ -24,14 +34,31 @@ function App() {
         <Route path="/placements" element={<Placeholder title="Placements" />} />
         <Route path="/campus" element={<Placeholder title="Campus" />} />
         <Route path="/contact" element={<Placeholder title="Contact" />} />
-        <Route path="/career" element={<Placeholder title="Career" />} />
+        <Route path="/career" element={<Career />} />
+        <Route path="/pharmacy" element={<Pharmacy />} />
         <Route path="/faq" element={<Placeholder title="FAQ" />} />
         <Route
           path="/travel-information"
           element={<Placeholder title="Travel Information" />}
         />
         <Route path="/apply" element={<Placeholder title="Apply Now" />} />
+
+        {/* New routes for footer links */}
+        <Route path="/b-pharm" element={<Placeholder title="B Pharmacy" />} />
+        <Route path="/d-pharm" element={<Placeholder title="D Pharmacy" />} />
+        <Route
+          path="/b-pharm-lateral-entry"
+          element={<Placeholder title="B Pharm (Lateral Entry)" />}
+        />
+        <Route path="/fee-structure" element={<Placeholder title="Fee Structure" />} />
+        <Route path="/achievements" element={<Placeholder title="Achievements" />} />
+        <Route path="/alumni" element={<Placeholder title="Alumni" />} />
+        <Route path="/terms" element={<Placeholder title="Terms & Conditions" />} />
+        <Route path="/faculty" element={<Placeholder title="Faculty & Staff" />} />
+        <Route path="/affidavit" element={<Placeholder title="Affidavit" />} />
+        <Route path="/departments" element={<Placeholder title="Departments" />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

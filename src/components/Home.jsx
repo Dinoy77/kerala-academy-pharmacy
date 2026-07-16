@@ -19,38 +19,12 @@ const slides = [
   { image: "/assets/images/toppers.png", mode: "banner" },
   { image: "/assets/images/ad1.jpeg", mode: "banner" },
   { image: "/assets/images/BE.png", mode: "banner" },
-  {
-    image: "/assets/images/college.jpeg",
-    heading: "Extensive Training and Placement Program",
-    link: "/pinnacle",
-  },
-  {
-    image: "/assets/images/ad5.jpeg",
-    heading: "Get a Head Start to Your Career",
-    description:
-      "Learn how to prepare, preserve, compound and dispense medical drugs, with rigorous inspection and quality evaluation.",
-    link: "/contact",
-  },
-  {
-    image: "/assets/images/trucking.jpg",
-    heading: "ALP — Adventure Learning Program",
-    link: "/pinnacle#alp",
-  },
-  {
-    image: "/assets/images/ad8.jpg",
-    heading: "Internship & Externship",
-    link: "/pinnacle#internship",
-  },
-  {
-    image: "/assets/images/newind.jpg",
-    heading: "Industrial Visit",
-    link: "/pinnacle#iv",
-  },
-  {
-    image: "/assets/images/international.jpg",
-    heading: "International Study Tour for Toppers",
-    link: "/pinnacle#tour",
-  },
+  { image: "/assets/images/college.jpeg" },
+  { image: "/assets/images/ad5.jpeg" },
+  { image: "/assets/images/trucking.jpg" },
+  { image: "/assets/images/ad8.jpg" },
+  { image: "/assets/images/newind.jpg" },
+  { image: "/assets/images/international.jpg" },
   { image: "/assets/images/approval.png", mode: "banner" },
 ];
 
@@ -185,11 +159,6 @@ function HeroSlideshow({ isMobile }) {
                   {s.description && (
                     <p style={styles.description}>{s.description}</p>
                   )}
-                  {s.link && (
-                    <Link to={s.link} style={styles.link}>
-                      Know More
-                    </Link>
-                  )}
                 </div>
               </div>
             </div>
@@ -214,15 +183,31 @@ const reasons = [
   {
     title: "World Class Faculty",
     desc: "Outstanding and highly qualified faculty members with an excellent curriculum framed in consultation with top academics and industry experts.",
+    icon: "🎓",
   },
   {
     title: "Pioneering Research",
     desc: "Ample opportunity for students to get involved in research under the guidance of experts, using the latest facilities and tools to discover and publish.",
+    icon: "🔬",
   },
   {
     title: "Global Exposure",
     desc: "Collaborations with top national and international universities create learning opportunities through transformative exchange programmes.",
+    icon: "🌍",
   },
+];
+
+const blogs = [
+  { image: "/assets/images/lab.jpeg", description: "Study about pharmaceutical chemistry." },
+  { image: "/assets/images/lab2.jpeg", description: "Study about Pharma practice." },
+  { image: "/assets/images/kap2.jpeg", description: "Study about Pharmaceutics." },
+  { image: "/assets/images/kap3.jpeg", description: "Study about pharmacognosy and Phytochemistry." },
+  { image: "/assets/images/lab.jpeg", description: "Study about pharmacology." },
+  { image: "/assets/images/cls.jpeg", description: "Pharmacopoeia." },
+  { image: "/assets/images/lab2.jpeg", description: "How to become a Pharmacist." },
+  { image: "/assets/images/b1.jpg", description: "12 June — World Day Against Child Labour." },
+  { image: "/assets/images/brain.jpg", description: "8 June — World Brain Tumour Day." },
+  { image: "/assets/images/cancer.png", description: "World Cancer Day and KAP's cancer awareness campaign." },
 ];
 
 const courses = [
@@ -231,62 +216,133 @@ const courses = [
   { title: "B-Pharm (Lateral Entry) — 3 Years", image: "/assets/images/kap2.jpeg", link: "/b-pharm-lateral-entry" },
 ];
 
+const tvmImages = [
+  "/assets/images/tvm1.jpg",
+  "/assets/images/tvm2.jpg",
+  "/assets/images/tvm3.jpg",
+  "/assets/images/tvm4.jpg",
+];
+
+function StudySection({ styles }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % tvmImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <section style={styles.study}>
+      {tvmImages.map((img, i) => (
+        <div
+          key={img}
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `url(${img})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: i === index ? 1 : 0,
+            transition: "opacity 1.5s ease",
+          }}
+        />
+      ))}
+      <div style={styles.studyDim} />
+      <div style={styles.studyOverlay}>
+        <h2 style={styles.studyHeading}>Study in the Capital of Kerala</h2>
+        <h3 style={styles.studySubheading}>Trivandrum</h3>
+        <p style={styles.studyText}>
+          The multi-cultural population and progressive attitude of Kerala make
+          it one of the most contemporary cities for young minds who hope to do
+          things differently. Come discover what makes this city so special, and
+          enjoy the benefits during your study at Kerala Academy of Pharmacy.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const isMobile = useResponsive();
   const styles = getStyles(isMobile);
 
   return (
     <div style={styles.page}>
-      <HeroSlideshow isMobile={isMobile} />
+      <div style={styles.heroBand}>
+        <HeroSlideshow isMobile={isMobile} />
+      </div>
 
       {/* About */}
-      <section style={styles.section}>
-        <h2 style={styles.sectionHeading}>Welcome to Kerala Academy of Pharmacy</h2>
-        <p style={styles.paragraph}>
-          KAP is beautifully located in Kattakada, Trivandrum — often referred to as
-          the soul of Kerala. It boasts a well-designed campus with modern amenities
-          and facilities. The faculty, accomplished in their respective fields,
-          provide an excellent blend of rigor and relevance in their teaching,
-          supported by staff who are always ready to assist. KAP fosters strong
-          industry interactions, conducts research focused on solving real-world
-          problems, and has an exemplary track record in career counseling and
-          placement support.
-        </p>
-        <p style={styles.paragraph}>
-          KAP's mission is to equip students with pharmacy healthcare knowledge and
-          skills, foster global competencies, instill strong values, and provide
-          outstanding pharmacy education and services for community development.
-          Key highlights include international study tours for top-performing
-          students, industrial visits, business English programs, extensive
-          placement training, and the Advanced Learning Program (ALP) for skill
-          enhancement.
-        </p>
+      <section style={styles.aboutSection}>
+        <div style={styles.aboutText}>
+          <div style={styles.eyebrow}>About KAP</div>
+          <h2 style={styles.aboutHeading}>
+            Welcome to Kerala Academy of Pharmacy
+          </h2>
+          <p style={styles.paragraphLeft}>
+            KAP is beautifully located in Kattakada, Trivandrum — often referred to as
+            the soul of Kerala. It boasts a well-designed campus with modern amenities
+            and facilities. The faculty, accomplished in their respective fields,
+            provide an excellent blend of rigor and relevance in their teaching,
+            supported by staff who are always ready to assist.
+          </p>
+          <p style={styles.paragraphLeft}>
+            KAP's mission is to equip students with pharmacy healthcare knowledge and
+            skills, foster global competencies, instill strong values, and provide
+            outstanding pharmacy education and services for community development.
+            Key highlights include international study tours for top-performing
+            students, industrial visits, business English programs, extensive
+            placement training, and the Advanced Learning Program (ALP).
+          </p>
+          <Link to="/about" style={styles.textLink}>
+            Read more about KAP →
+          </Link>
+        </div>
+        <div style={styles.aboutImageWrap}>
+          <div
+            style={{
+              ...styles.aboutImage,
+              backgroundImage: "url(/assets/images/college.jpeg)",
+            }}
+          />
+        </div>
       </section>
 
       {/* Reasons to study */}
-      <section style={styles.section}>
-        <h2 style={styles.sectionHeading}>Reasons to Study at Kerala Academy of Pharmacy</h2>
-        <p style={styles.sectionSub}>
-          Equipped with years of rich legacy, KAP imparts high quality,
-          interdisciplinary education at an affordable cost.
-        </p>
-        <div style={styles.grid3}>
-          {reasons.map((r) => (
-            <div style={styles.card} key={r.title}>
-              <h3 style={styles.cardTitle}>{r.title}</h3>
-              <p style={styles.cardText}>{r.desc}</p>
-            </div>
-          ))}
+      <section style={styles.sectionShaded}>
+        <div style={styles.sectionInner}>
+          <div style={styles.sectionHeaderLeft}>
+            <div style={styles.eyebrow}>Why KAP</div>
+            <h2 style={styles.sectionHeadingLeft}>Reasons to Study at KAP</h2>
+            <p style={styles.sectionSubLeft}>
+              Equipped with years of rich legacy, KAP imparts high quality,
+              interdisciplinary education at an affordable cost.
+            </p>
+          </div>
+          <div style={styles.grid3}>
+            {reasons.map((r) => (
+              <div style={styles.reasonCard} key={r.title}>
+                <div style={styles.iconCircle}>{r.icon}</div>
+                <h3 style={styles.cardTitle}>{r.title}</h3>
+                <p style={styles.cardText}>{r.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Courses */}
       <section style={styles.section}>
-        <h2 style={styles.sectionHeading}>Our Courses</h2>
-        <p style={styles.sectionSub}>
-          Explore the variety of courses offered by KAP, catering to aspiring
-          pharmacists and healthcare professionals.
-        </p>
+        <div style={styles.sectionHeaderLeft}>
+          <div style={styles.eyebrow}>Programs</div>
+          <h2 style={styles.sectionHeadingLeft}>Our Courses</h2>
+          <p style={styles.sectionSubLeft}>
+            Explore the variety of courses offered by KAP, catering to aspiring
+            pharmacists and healthcare professionals.
+          </p>
+        </div>
         <div style={styles.grid3}>
           {courses.map((c) => (
             <div style={styles.courseCard} key={c.title}>
@@ -300,19 +356,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Study in Trivandrum */}
-      <section style={styles.study}>
-        <div style={styles.studyOverlay}>
-          <h2 style={styles.studyHeading}>Study in the Capital of Kerala</h2>
-          <h3 style={styles.studySubheading}>Trivandrum</h3>
-          <p style={styles.studyText}>
-            The multi-cultural population and progressive attitude of Kerala make
-            it one of the most contemporary cities for young minds who hope to do
-            things differently. Come discover what makes this city so special, and
-            enjoy the benefits during your study at Kerala Academy of Pharmacy.
-          </p>
+      {/* Blogs */}
+      <section style={styles.sectionShaded}>
+        <div style={styles.sectionInner}>
+          <div style={styles.sectionHeaderLeft}>
+            <div style={styles.eyebrow}>Blog</div>
+            <h2 style={styles.sectionHeadingLeft}>From Our Blog</h2>
+          </div>
+          <style>{`
+            @keyframes blogScroll {
+              from { transform: translateX(0); }
+              to { transform: translateX(-50%); }
+            }
+            .blog-track {
+              animation: blogScroll 35s linear infinite;
+            }
+            .blog-track:hover {
+              animation-play-state: paused;
+            }
+          `}</style>
+          <div style={styles.blogScrollOuter}>
+            <div className="blog-track" style={styles.blogTrack}>
+              {[...blogs, ...blogs].map((b, i) => (
+                <div style={styles.blogCard} key={`${b.description}-${i}`}>
+                  <div
+                    style={{ ...styles.blogImage, backgroundImage: `url(${b.image})` }}
+                  />
+                  <div style={styles.blogCardBody}>
+                    <p style={styles.blogText}>{b.description}</p>
+                    <Link to="/blogs" style={styles.blogReadMore}>
+                      Read More →
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
+
+      <StudySection styles={styles} />
 
       {/* CTA */}
       <section style={styles.cta}>
@@ -331,6 +414,11 @@ export default function Home() {
 const getStyles = (isMobile) => ({
   page: { fontFamily: "system-ui, sans-serif", color: "#24211f" },
 
+  heroBand: {
+    background:
+      "radial-gradient(ellipse at top, #58191f 0%, #3a1418 55%, #2a0e11 100%)",
+    padding: isMobile ? "1px 12px 20px" : "1px 24px 32px",
+  },
   btnPrimary: {
     background: "#6b1f27",
     color: "#f8ecc9",
@@ -343,13 +431,88 @@ const getStyles = (isMobile) => ({
     display: "inline-block",
   },
 
+  aboutSection: {
+    display: "flex",
+    flexDirection: isMobile ? "column" : "row",
+    alignItems: "center",
+    gap: isMobile ? "24px" : "48px",
+    maxWidth: "1100px",
+    margin: "0 auto",
+    padding: isMobile ? "36px 20px" : "64px 40px",
+  },
+  aboutText: {
+    flex: 1,
+  },
+  aboutHeading: {
+    fontSize: isMobile ? "21px" : "26px",
+    color: "#3a1418",
+    marginBottom: "16px",
+    lineHeight: 1.3,
+  },
+  paragraphLeft: {
+    fontSize: isMobile ? "13.5px" : "14.5px",
+    lineHeight: 1.8,
+    color: "#4a433e",
+    marginBottom: "16px",
+  },
+  textLink: {
+    color: "#6b1f27",
+    fontSize: "13.5px",
+    fontWeight: 600,
+    textDecoration: "none",
+  },
+  aboutImageWrap: {
+    flex: 1,
+    width: "100%",
+  },
+  aboutImage: {
+    width: "100%",
+    height: isMobile ? "220px" : "340px",
+    borderRadius: "16px",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundColor: "#ece6d8",
+    boxShadow: "0 10px 30px rgba(58,20,24,0.15)",
+  },
+
+  sectionHeaderLeft: {
+    marginBottom: "32px",
+    maxWidth: "560px",
+  },
+  sectionHeadingLeft: {
+    fontSize: isMobile ? "20px" : "24px",
+    color: "#3a1418",
+    marginBottom: "10px",
+  },
+  sectionSubLeft: {
+    color: "#6b625a",
+    fontSize: isMobile ? "13px" : "14px",
+    lineHeight: 1.6,
+  },
+
   section: {
-    padding: isMobile ? "32px 20px" : "48px 40px",
+    padding: isMobile ? "36px 20px" : "56px 40px",
     maxWidth: "1000px",
     margin: "0 auto",
   },
+  sectionShaded: {
+    background: "#fbf8f3",
+  },
+  sectionInner: {
+    padding: isMobile ? "36px 20px" : "56px 40px",
+    maxWidth: "1000px",
+    margin: "0 auto",
+  },
+  eyebrow: {
+    fontSize: "11px",
+    letterSpacing: "0.12em",
+    color: "#9c7a22",
+    textTransform: "uppercase",
+    marginBottom: "10px",
+    fontWeight: 600,
+  },
   sectionHeading: {
-    fontSize: isMobile ? "19px" : "22px",
+    fontSize: isMobile ? "20px" : "24px",
     color: "#3a1418",
     textAlign: "center",
     marginBottom: "16px",
@@ -359,46 +522,61 @@ const getStyles = (isMobile) => ({
     color: "#6b625a",
     fontSize: isMobile ? "13px" : "14px",
     maxWidth: "560px",
-    margin: "0 auto 28px",
+    margin: "0 auto 32px",
     lineHeight: 1.6,
   },
   paragraph: {
     fontSize: isMobile ? "13.5px" : "14.5px",
-    lineHeight: 1.75,
+    lineHeight: 1.8,
     color: "#4a433e",
-    marginBottom: "14px",
+    marginBottom: "16px",
+    maxWidth: "760px",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 
   grid3: {
     display: "grid",
     gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
-    gap: isMobile ? "14px" : "18px",
+    gap: isMobile ? "16px" : "22px",
   },
-  card: {
+  reasonCard: {
     background: "#fff",
-    border: "1px solid #ece6d8",
-    borderRadius: "10px",
-    padding: "22px 18px",
+    borderRadius: "12px",
+    padding: "30px 22px",
     textAlign: "center",
+    boxShadow: "0 4px 20px rgba(58,20,24,0.06)",
+  },
+  iconCircle: {
+    width: "48px",
+    height: "48px",
+    borderRadius: "50%",
+    background: "#6b1f27",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: "0 auto 16px",
+    fontSize: "22px",
   },
   cardTitle: {
     fontSize: "15px",
-    color: "#6b1f27",
+    color: "#3a1418",
     marginBottom: "8px",
+    fontWeight: 600,
   },
   cardText: {
     fontSize: "13px",
     color: "#6b625a",
-    lineHeight: 1.6,
+    lineHeight: 1.65,
   },
 
   courseCard: {
     background: "#fff",
-    border: "1px solid #ece6d8",
-    borderRadius: "10px",
+    borderRadius: "12px",
     overflow: "hidden",
     textAlign: "center",
-    paddingBottom: "16px",
+    paddingBottom: "18px",
+    boxShadow: "0 4px 20px rgba(58,20,24,0.06)",
   },
   courseImage: {
     width: "100%",
@@ -419,11 +597,67 @@ const getStyles = (isMobile) => ({
     fontWeight: 500,
   },
 
+  blogScrollOuter: {
+    overflow: "hidden",
+    width: "100%",
+  },
+  blogTrack: {
+    display: "flex",
+    gap: "20px",
+    width: "max-content",
+  },
+  blogCard: {
+    flex: "0 0 auto",
+    width: isMobile ? "220px" : "280px",
+    background: "#fff",
+    borderRadius: "14px",
+    overflow: "hidden",
+    boxShadow: "0 4px 20px rgba(58,20,24,0.08)",
+  },
+  blogImage: {
+    width: "100%",
+    height: isMobile ? "140px" : "170px",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundColor: "#ece6d8",
+  },
+  blogCardBody: {
+    padding: "16px",
+  },
+  blogText: {
+    fontSize: "13.5px",
+    color: "#3a1418",
+    margin: "0 0 12px",
+    lineHeight: 1.55,
+    minHeight: "40px",
+  },
+  blogReadMore: {
+    display: "inline-block",
+    fontSize: "12.5px",
+    fontWeight: 600,
+    color: "#fff",
+    background: "#6b1f27",
+    padding: "7px 14px",
+    borderRadius: "6px",
+    textDecoration: "none",
+  },
+
   study: {
-    background: "#3a1418 url(/assets/images/tvm1.jpg) center/cover no-repeat",
-    backgroundBlendMode: "multiply",
+    position: "relative",
+    overflow: "hidden",
+    minHeight: isMobile ? "320px" : "420px",
+    display: "flex",
+    alignItems: "center",
+  },
+  studyDim: {
+    position: "absolute",
+    inset: 0,
+    background:
+      "linear-gradient(180deg, rgba(58,20,24,0.55) 0%, rgba(58,20,24,0.75) 100%)",
   },
   studyOverlay: {
+    position: "relative",
+    zIndex: 1,
     padding: isMobile ? "40px 20px" : "64px 40px",
     textAlign: "center",
     color: "#f8ecc9",
