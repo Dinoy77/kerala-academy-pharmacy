@@ -9,6 +9,12 @@ import PrincipalMessage from "./components/PrincipalMessage";
 import VisionMission from "./components/VisionMission";
 import Pharmacy from "./components/Pharmacy";
 import Career from "./components/Career";
+import Pinnacle from "./components/Pinnacle";
+import Library from "./components/Library";
+import BPharm from "./components/BPharm";
+import DPharm from "./components/DPharm";
+import MPharm from "./components/MPharm";
+import Department from "./components/Department";
 import "./App.css";
 
 function App() {
@@ -22,8 +28,14 @@ function App() {
         <Route path="/about/principal" element={<PrincipalMessage />} />
         <Route path="/about/vision-mission" element={<VisionMission />} />
         <Route path="/why-kap" element={<Placeholder title="Why KAP" />} />
-        <Route path="/academics" element={<Placeholder title="Academics" />} />
-        <Route path="/admission" element={<Placeholder title="Admission" />} />
+        <Route path="/pinnacle" element={<Pinnacle />} />
+        <Route path="/library" element={<Library />} />
+        <Route path="/bpharm" element={<BPharm />} />
+        <Route path="/dpharm" element={<DPharm />} />
+        <Route path="/mpharm" element={<MPharm />} />
+        <Route path="/department" element={<Department />} />
+        <Route path="/online-admission" element={<Placeholder title="Online Admission Registration" />} />
+        <Route path="/online-payment" element={<Placeholder title="Online Payment" />} />
         <Route path="/approval" element={<Placeholder title="Approval" />} />
         <Route path="/events" element={<Placeholder title="Events" />} />
         <Route path="/blogs" element={<Placeholder title="Blogs" />} />

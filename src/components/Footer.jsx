@@ -49,15 +49,6 @@ export default function Footer() {
         .footer-social:hover { background: #c9a227 !important; color: #2a0e11 !important; }
         .footer-cta-btn:hover { background: #e0b830 !important; }
       `}</style>
-      <div style={styles.ctaStrip}>
-        <div style={styles.ctaStripInner}>
-          <div>
-            <h2 style={styles.ctaHeading}>Ready to begin your journey?</h2>
-            <p style={styles.ctaSub}>Admissions for 2026 are now open.</p>
-          </div>
-          <Link to="/apply" style={styles.ctaButton} className="footer-cta-btn">Apply Now</Link>
-        </div>
-      </div>
 
       <div style={styles.grid}>
         {/* Logo + social */}
@@ -148,8 +139,7 @@ const getStyles = (isMobile) => ({
     background: "linear-gradient(135deg, #58191f, #3a1418)",
   },
   ctaStripInner: {
-    maxWidth: "1100px",
-    margin: "0 auto",
+
     padding: isMobile ? "32px 24px" : "40px 40px",
     display: "flex",
     flexDirection: isMobile ? "column" : "row",
@@ -181,8 +171,7 @@ const getStyles = (isMobile) => ({
     display: "grid",
     gridTemplateColumns: isMobile ? "1fr" : "1.3fr 1fr 1.3fr 1.3fr",
     gap: isMobile ? "28px" : "32px",
-    maxWidth: "1100px",
-    margin: "0 auto",
+
     padding: isMobile ? "32px 24px 32px" : "48px 40px 40px",
   },
 

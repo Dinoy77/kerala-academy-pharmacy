@@ -29,8 +29,31 @@ const mainLinks = [
       { label: "Career Openings", to: "/career" },
     ],
   },
-  { label: "Academics", to: "/academics" },
-  { label: "Admission", to: "/admission" },
+  {
+    label: "Academics",
+    to: "/pinnacle",
+    children: [
+      { label: "Pinnacles of KAP", to: "/pinnacle" },
+      { label: "Library", to: "/library" },
+    ],
+  },
+  {
+    label: "Admission",
+    to: "/bpharm",
+    children: [
+      {
+        label: "Courses",
+        children: [
+          { label: "B-Pharm", to: "/bpharm" },
+          { label: "D-Pharm", to: "/dpharm" },
+          { label: "B-Pharm (Lateral Entry)", to: "/mpharm" },
+        ],
+      },
+      { label: "Departments", to: "/department" },
+      { label: "Online Admission Registration", to: "/online-admission" },
+      { label: "Online Payment", to: "/online-payment" },
+    ],
+  },
   { label: "Approval", to: "/approval" },
   { label: "Events", to: "/events" },
   { label: "Blogs", to: "/blogs" },
@@ -106,19 +129,43 @@ export default function Navbar() {
                     mobileSubOpen === link.label ? "mobile-open" : ""
                   }`}
                 >
-                  {link.children.map((child) => (
-                    <Link
-                      key={child.to}
-                      to={child.to}
-                      className="navbar-dropdown-link"
-                      onClick={() => {
-                        setOpen(false);
-                        setMobileSubOpen(null);
-                      }}
-                    >
-                      {child.label}
-                    </Link>
-                  ))}
+                  {link.children.map((child) =>
+                    child.children ? (
+                      <div className="navbar-subitem-dropdown" key={child.label}>
+                        <span className="navbar-dropdown-link navbar-dropdown-parent">
+                          {child.label}
+                          <span className="navbar-caret navbar-caret-right">▸</span>
+                        </span>
+                        <div className="navbar-subdropdown">
+                          {child.children.map((grandchild) => (
+                            <Link
+                              key={grandchild.to}
+                              to={grandchild.to}
+                              className="navbar-dropdown-link"
+                              onClick={() => {
+                                setOpen(false);
+                                setMobileSubOpen(null);
+                              }}
+                            >
+                              {grandchild.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <Link
+                        key={child.to}
+                        to={child.to}
+                        className="navbar-dropdown-link"
+                        onClick={() => {
+                          setOpen(false);
+                          setMobileSubOpen(null);
+                        }}
+                      >
+                        {child.label}
+                      </Link>
+                    )
+                  )}
                 </div>
               </div>
             ) : (

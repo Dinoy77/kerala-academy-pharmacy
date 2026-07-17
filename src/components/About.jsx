@@ -76,8 +76,7 @@ const getStyles = (isMobile) => ({
     display: "flex",
     flexDirection: isMobile ? "column" : "row",
     gap: isMobile ? "24px" : "48px",
-    maxWidth: "1100px",
-    margin: "0 auto",
+
     padding: isMobile ? "32px 20px" : "56px 40px",
     alignItems: "flex-start",
   },
@@ -138,8 +137,7 @@ const getStyles = (isMobile) => ({
     borderTop: "1px solid #ece6d8",
   },
   subNavInner: {
-    maxWidth: "1100px",
-    margin: "0 auto",
+
     padding: isMobile ? "24px 20px" : "32px 40px",
     display: "grid",
     gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",

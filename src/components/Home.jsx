@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import CongratsPopup from "./CongratsPopup";
 
 function useResponsive() {
   const [width, setWidth] = useState(
@@ -42,11 +43,11 @@ function HeroSlideshow({ isMobile }) {
     wrap: {
       position: "relative",
       width: "100%",
-      maxWidth: "1100px",
-      margin: isMobile ? "16px auto" : "24px auto",
       height: isMobile ? "220px" : "440px",
       overflow: "hidden",
       background: "#f3ecdd",
+      marginTop: isMobile ? "16px" : "24px",
+      marginBottom: isMobile ? "16px" : "24px",
       borderRadius: isMobile ? "10px" : "16px",
       boxShadow: "0 8px 30px rgba(58,20,24,0.15)",
     },
@@ -270,6 +271,7 @@ export default function Home() {
 
   return (
     <div style={styles.page}>
+      <CongratsPopup />
       <div style={styles.heroBand}>
         <HeroSlideshow isMobile={isMobile} />
       </div>
@@ -396,17 +398,6 @@ export default function Home() {
       </section>
 
       <StudySection styles={styles} />
-
-      {/* CTA */}
-      <section style={styles.cta}>
-        <div>
-          <h2 style={styles.ctaHeading}>Ready to begin your journey?</h2>
-          <p style={styles.ctaText}>Apply now for the 2026 academic year at KAP.</p>
-        </div>
-        <Link to="/apply" style={styles.btnPrimary}>
-          Apply Now
-        </Link>
-      </section>
     </div>
   );
 }
@@ -436,8 +427,7 @@ const getStyles = (isMobile) => ({
     flexDirection: isMobile ? "column" : "row",
     alignItems: "center",
     gap: isMobile ? "24px" : "48px",
-    maxWidth: "1100px",
-    margin: "0 auto",
+
     padding: isMobile ? "36px 20px" : "64px 40px",
   },
   aboutText: {
@@ -492,16 +482,14 @@ const getStyles = (isMobile) => ({
 
   section: {
     padding: isMobile ? "36px 20px" : "56px 40px",
-    maxWidth: "1000px",
-    margin: "0 auto",
+
   },
   sectionShaded: {
     background: "#fbf8f3",
   },
   sectionInner: {
     padding: isMobile ? "36px 20px" : "56px 40px",
-    maxWidth: "1000px",
-    margin: "0 auto",
+
   },
   eyebrow: {
     fontSize: "11px",
@@ -517,22 +505,11 @@ const getStyles = (isMobile) => ({
     textAlign: "center",
     marginBottom: "16px",
   },
-  sectionSub: {
-    textAlign: "center",
-    color: "#6b625a",
-    fontSize: isMobile ? "13px" : "14px",
-    maxWidth: "560px",
-    margin: "0 auto 32px",
-    lineHeight: 1.6,
-  },
   paragraph: {
     fontSize: isMobile ? "13.5px" : "14.5px",
     lineHeight: 1.8,
     color: "#4a433e",
     marginBottom: "16px",
-    maxWidth: "760px",
-    marginLeft: "auto",
-    marginRight: "auto",
   },
 
   grid3: {
@@ -661,8 +638,7 @@ const getStyles = (isMobile) => ({
     padding: isMobile ? "40px 20px" : "64px 40px",
     textAlign: "center",
     color: "#f8ecc9",
-    maxWidth: "700px",
-    margin: "0 auto",
+
   },
   studyHeading: {
     fontSize: isMobile ? "18px" : "22px",

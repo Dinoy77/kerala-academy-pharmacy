@@ -315,8 +315,7 @@ const getStyles = (isMobile) => ({
   },
 
   section: {
-    maxWidth: "1000px",
-    margin: "0 auto",
+
     padding: isMobile ? "32px 20px" : "48px 40px",
   },
 
@@ -346,9 +345,6 @@ const getStyles = (isMobile) => ({
     lineHeight: 1.8,
     color: "#4a433e",
     marginBottom: "16px",
-    maxWidth: "760px",
-    marginLeft: "auto",
-    marginRight: "auto",
   },
   list: {
     margin: 0,

@@ -68,8 +68,7 @@ export default function Chairman() {
 const getStyles = (isMobile) => ({
   page: {
     fontFamily: "system-ui, sans-serif",
-    maxWidth: "1000px",
-    margin: "0 auto",
+
     padding: isMobile ? "32px 20px 48px" : "56px 40px 64px",
   },
   eyebrow: {
