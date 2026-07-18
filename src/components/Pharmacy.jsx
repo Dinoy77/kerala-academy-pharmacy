@@ -184,7 +184,7 @@ function ContentBlock({ block, styles }) {
         )}
       </div>
       <div style={styles.contentImageWrap}>
-        <div style={{ ...styles.contentImage, backgroundImage: `url(${block.image})` }} />
+        <div style={{ ...styles.contentImage, backgroundImage: `url("${block.image}")` }} />
       </div>
     </div>
   );

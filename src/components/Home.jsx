@@ -124,7 +124,7 @@ function HeroSlideshow({ isMobile }) {
                 style={{
                   position: "absolute",
                   inset: 0,
-                  backgroundImage: `url(${s.image})`,
+                  backgroundImage: `url("${s.image}")`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   filter: "blur(24px) brightness(0.85)",
@@ -136,7 +136,7 @@ function HeroSlideshow({ isMobile }) {
                 style={{
                   position: "absolute",
                   inset: 0,
-                  backgroundImage: `url(${s.image})`,
+                  backgroundImage: `url("${s.image}")`,
                   backgroundSize: "contain",
                   backgroundPosition: "center",
                   backgroundRepeat: "no-repeat",
@@ -148,7 +148,7 @@ function HeroSlideshow({ isMobile }) {
               style={{
                 position: "absolute",
                 inset: 0,
-                backgroundImage: `url(${s.image})`,
+                backgroundImage: `url("${s.image}")`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundColor: "#3a1418",
@@ -242,7 +242,7 @@ function StudySection({ styles }) {
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `url(${img})`,
+            backgroundImage: `url("${img}")`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             opacity: i === index ? 1 : 0,
@@ -349,7 +349,7 @@ export default function Home() {
           {courses.map((c) => (
             <div style={styles.courseCard} key={c.title}>
               <div
-                style={{ ...styles.courseImage, backgroundImage: `url(${c.image})` }}
+                style={{ ...styles.courseImage, backgroundImage: `url("${c.image}")` }}
               />
               <h3 style={styles.courseTitle}>{c.title}</h3>
               <Link to={c.link} style={styles.courseLink}>Read More →</Link>
@@ -382,7 +382,7 @@ export default function Home() {
               {[...blogs, ...blogs].map((b, i) => (
                 <div style={styles.blogCard} key={`${b.description}-${i}`}>
                   <div
-                    style={{ ...styles.blogImage, backgroundImage: `url(${b.image})` }}
+                    style={{ ...styles.blogImage, backgroundImage: `url("${b.image}")` }}
                   />
                   <div style={styles.blogCardBody}>
                     <p style={styles.blogText}>{b.description}</p>

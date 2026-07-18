@@ -86,7 +86,7 @@ export default function Department() {
           >
             <div style={styles.imageWrap}>
               <div
-                style={{ ...styles.image, backgroundImage: `url(${d.image})` }}
+                style={{ ...styles.image, backgroundImage: `url("${d.image}")` }}
               />
             </div>
             <div style={styles.textWrap}>

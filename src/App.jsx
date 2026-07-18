@@ -16,6 +16,7 @@ import DPharm from "./components/DPharm";
 import MPharm from "./components/MPharm";
 import Department from "./components/Department";
 import Approval from "./components/Approval";
+import Events from "./components/Events";
 import "./App.css";
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
         <Route path="/online-admission" element={<Placeholder title="Online Admission Registration" />} />
         <Route path="/online-payment" element={<Placeholder title="Online Payment" />} />
         <Route path="/approval" element={<Approval />} />
-        <Route path="/events" element={<Placeholder title="Events" />} />
+        <Route path="/events" element={<Events />} />
         <Route path="/blogs" element={<Placeholder title="Blogs" />} />
         <Route
           path="/information-center"
