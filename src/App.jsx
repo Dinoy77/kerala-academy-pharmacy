@@ -17,6 +17,8 @@ import MPharm from "./components/MPharm";
 import Department from "./components/Department";
 import Approval from "./components/Approval";
 import Events from "./components/Events";
+import BlogList from "./components/BlogList";
+import BlogDetail from "./components/BlogDetail";
 import "./App.css";
 
 function App() {
@@ -40,7 +42,8 @@ function App() {
         <Route path="/online-payment" element={<Placeholder title="Online Payment" />} />
         <Route path="/approval" element={<Approval />} />
         <Route path="/events" element={<Events />} />
-        <Route path="/blogs" element={<Placeholder title="Blogs" />} />
+        <Route path="/blogs" element={<BlogList />} />
+        <Route path="/blogs/:slug" element={<BlogDetail />} />
         <Route
           path="/information-center"
           element={<Placeholder title="Information Center" />}
