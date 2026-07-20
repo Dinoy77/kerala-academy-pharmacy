@@ -14,207 +14,27 @@ function useResponsive() {
   return width < 768;
 }
 
-// Slides: "banner" mode = full image, no overlay text (ads/certificates/posters).
-// Default mode = cover image with dark overlay + heading/description/CTA.
-const slides = [
-  { image: "/assets/images/toppers.png", mode: "banner" },
-  { image: "/assets/images/ad1.jpeg", mode: "banner" },
-  { image: "/assets/images/BE.png", mode: "banner" },
-  { image: "/assets/images/college.jpeg" },
-  { image: "/assets/images/ad5.jpeg" },
-  { image: "/assets/images/trucking.jpg" },
-  { image: "/assets/images/ad8.jpg" },
-  { image: "/assets/images/newind.jpg" },
-  { image: "/assets/images/international.jpg" },
-  { image: "/assets/images/approval.png", mode: "banner" },
-];
-
-function HeroSlideshow({ isMobile }) {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((i) => (i + 1) % slides.length);
-    }, 5500);
-    return () => clearInterval(timer);
-  }, []);
-
-  const styles = {
-    wrap: {
-      position: "relative",
-      width: "100%",
-      height: isMobile ? "220px" : "440px",
-      overflow: "hidden",
-      background: "#f3ecdd",
-      marginTop: isMobile ? "16px" : "24px",
-      marginBottom: isMobile ? "16px" : "24px",
-      borderRadius: isMobile ? "10px" : "16px",
-      boxShadow: "0 8px 30px rgba(58,20,24,0.15)",
-    },
-    overlay: {
-      position: "absolute",
-      inset: 0,
-      background:
-        "linear-gradient(0deg, rgba(58,20,24,0.75) 0%, rgba(58,20,24,0.1) 65%)",
-      display: "flex",
-      alignItems: "flex-end",
-      padding: isMobile ? "16px" : "44px",
-    },
-    content: {
-      color: "#f8ecc9",
-      maxWidth: "520px",
-    },
-    heading: {
-      fontSize: isMobile ? "16px" : "26px",
-      margin: "0 0 8px",
-      lineHeight: 1.25,
-    },
-    description: {
-      fontSize: isMobile ? "12px" : "14px",
-      color: "#e8dcc4",
-      marginBottom: "14px",
-      lineHeight: 1.6,
-      display: isMobile ? "none" : "block",
-    },
-    link: {
-      display: "inline-block",
-      background: "#c9a227",
-      color: "#3a1418",
-      textDecoration: "none",
-      fontSize: "13px",
-      fontWeight: 600,
-      padding: "8px 16px",
-      borderRadius: "6px",
-    },
-    dots: {
-      position: "absolute",
-      bottom: "12px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      display: "flex",
-      gap: "6px",
-      zIndex: 2,
-    },
-    dot: (active) => ({
-      width: "7px",
-      height: "7px",
-      borderRadius: "50%",
-      background: active ? "#c9a227" : "rgba(255,255,255,0.55)",
-      cursor: "pointer",
-      boxShadow: "0 0 0 1px rgba(0,0,0,0.15)",
-    }),
-  };
-
-  return (
-    <div style={styles.wrap}>
-      {slides.map((s, i) => (
-        <div
-          key={s.image}
-          style={{
-            position: "absolute",
-            inset: 0,
-            opacity: i === index ? 1 : 0,
-            transition: "opacity 1s ease",
-          }}
-        >
-          {s.mode === "banner" ? (
-            <>
-              {/* Blurred fill layer so there's no plain empty bars around the ad graphic */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  backgroundImage: `url("${s.image}")`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  filter: "blur(24px) brightness(0.85)",
-                  transform: "scale(1.15)",
-                }}
-              />
-              {/* Sharp centered image on top */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  backgroundImage: `url("${s.image}")`,
-                  backgroundSize: "contain",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }}
-              />
-            </>
-          ) : (
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                backgroundImage: `url("${s.image}")`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundColor: "#3a1418",
-              }}
-            >
-              <div style={styles.overlay}>
-                <div style={styles.content}>
-                  {s.heading && <h2 style={styles.heading}>{s.heading}</h2>}
-                  {s.description && (
-                    <p style={styles.description}>{s.description}</p>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      ))}
-
-      <div style={styles.dots}>
-        {slides.map((_, i) => (
-          <span
-            key={i}
-            style={styles.dot(i === index)}
-            onClick={() => setIndex(i)}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
 const reasons = [
-  {
-    title: "World Class Faculty",
-    desc: "Outstanding and highly qualified faculty members with an excellent curriculum framed in consultation with top academics and industry experts.",
-    icon: "🎓",
-  },
-  {
-    title: "Pioneering Research",
-    desc: "Ample opportunity for students to get involved in research under the guidance of experts, using the latest facilities and tools to discover and publish.",
-    icon: "🔬",
-  },
-  {
-    title: "Global Exposure",
-    desc: "Collaborations with top national and international universities create learning opportunities through transformative exchange programmes.",
-    icon: "🌍",
-  },
-];
-
-const blogs = [
-  { image: "/assets/images/lab.jpeg", description: "Study about pharmaceutical chemistry." },
-  { image: "/assets/images/lab2.jpeg", description: "Study about Pharma practice." },
-  { image: "/assets/images/kap2.jpeg", description: "Study about Pharmaceutics." },
-  { image: "/assets/images/kap3.jpeg", description: "Study about pharmacognosy and Phytochemistry." },
-  { image: "/assets/images/lab.jpeg", description: "Study about pharmacology." },
-  { image: "/assets/images/cls.jpeg", description: "Pharmacopoeia." },
-  { image: "/assets/images/lab2.jpeg", description: "How to become a Pharmacist." },
-  { image: "/assets/images/b1.jpg", description: "12 June — World Day Against Child Labour." },
-  { image: "/assets/images/brain.jpg", description: "8 June — World Brain Tumour Day." },
-  { image: "/assets/images/cancer.png", description: "World Cancer Day and KAP's cancer awareness campaign." },
+  { title: "World Class Faculty", desc: "Outstanding and highly qualified faculty members with an excellent curriculum framed with academics and industry experts.", icon: "🎓" },
+  { title: "Pioneering Research", desc: "Hands-on opportunities to work under expert guidance, using the latest facilities and tools to discover and publish.", icon: "🔬" },
+  { title: "Global Exposure", desc: "Collaborations with top national and international universities through transformative exchange programmes.", icon: "🌍" },
 ];
 
 const courses = [
-  { title: "B-Pharm — 4 Years", image: "/assets/images/lab.jpeg", link: "/b-pharm" },
-  { title: "D-Pharm — 2 Years", image: "/assets/images/lab2.jpeg", link: "/d-pharm" },
-  { title: "B-Pharm (Lateral Entry) — 3 Years", image: "/assets/images/kap2.jpeg", link: "/b-pharm-lateral-entry" },
+  { title: "B-Pharm — 4 Years", image: "/assets/images/lab.jpeg", link: "/bpharm" },
+  { title: "D-Pharm — 2 Years", image: "/assets/images/lab2.jpeg", link: "/dpharm" },
+  { title: "B-Pharm (Lateral Entry) — 3 Years", image: "/assets/images/kap2.jpeg", link: "/mpharm" },
+];
+
+const blogs = [
+  { image: "/assets/images/lab.jpeg", description: "Study about pharmaceutical chemistry.", slug: "blogh1" },
+  { image: "/assets/images/lab2.jpeg", description: "Study about Pharma practice.", slug: "blogh2" },
+  { image: "/assets/images/kap2.jpeg", description: "Study about Pharmaceutics.", slug: "blogh3" },
+  { image: "/assets/images/kap3.jpeg", description: "Study about pharmacognosy and Phytochemistry.", slug: "blogh4" },
+  { image: "/assets/images/lab.jpeg", description: "Study about pharmacology.", slug: "blogh5" },
+  { image: "/assets/images/cls.jpeg", description: "Pharmacopoeia.", slug: "blogh6" },
+  { image: "/assets/images/lab2.jpeg", description: "How to become a Pharmacist.", slug: "blogh7" },
+  { image: "/assets/images/b17.jpg", description: "Why Pharmacy is a good career.", slug: "blogh8" },
 ];
 
 const tvmImages = [
@@ -226,14 +46,10 @@ const tvmImages = [
 
 function StudySection({ styles }) {
   const [index, setIndex] = useState(0);
-
   useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((i) => (i + 1) % tvmImages.length);
-    }, 5000);
+    const timer = setInterval(() => setIndex((i) => (i + 1) % tvmImages.length), 5000);
     return () => clearInterval(timer);
   }, []);
-
   return (
     <section style={styles.study}>
       {tvmImages.map((img, i) => (
@@ -257,8 +73,7 @@ function StudySection({ styles }) {
         <p style={styles.studyText}>
           The multi-cultural population and progressive attitude of Kerala make
           it one of the most contemporary cities for young minds who hope to do
-          things differently. Come discover what makes this city so special, and
-          enjoy the benefits during your study at Kerala Academy of Pharmacy.
+          things differently. Come discover what makes this city so special.
         </p>
       </div>
     </section>
@@ -272,17 +87,91 @@ export default function Home() {
   return (
     <div style={styles.page}>
       <CongratsPopup />
-      <div style={styles.heroBand}>
-        <HeroSlideshow isMobile={isMobile} />
-      </div>
+
+      <style>{`
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes floatBlob { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(14px) scale(1.06); } }
+        @keyframes floatCardBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes ctaPulse { 0%, 100% { box-shadow: 0 6px 16px rgba(0,0,0,0.15); } 50% { box-shadow: 0 6px 22px rgba(255,209,102,0.5); } }
+        .hero-fade-1 { animation: fadeUp 0.6s ease both; }
+        .hero-fade-2 { animation: fadeUp 0.6s ease 0.1s both; }
+        .kap-blob { animation: floatBlob 6s ease-in-out infinite; }
+        .kap-float-card { animation: floatCardBounce 3.5s ease-in-out infinite; }
+        .kap-btn-white { animation: ctaPulse 2.4s ease-in-out infinite; transition: transform 0.15s ease, background 0.15s ease; }
+        .kap-btn-white:hover { animation-play-state: paused; background: #FFF3D6; transform: translateY(-2px); }
+        .kap-btn-outline { transition: background 0.15s ease, transform 0.15s ease; }
+        .kap-btn-outline:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
+        .kap-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .kap-lift:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(196,30,30,0.16); }
+        .kap-icon { transition: transform 0.25s ease; }
+        .kap-lift:hover .kap-icon { transform: rotate(-8deg) scale(1.1); }
+        .kap-text-link { position: relative; }
+        .kap-text-link::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 1.5px; background: currentColor; transition: width 0.2s ease; }
+        .kap-text-link:hover::after { width: 100%; }
+      `}</style>
+
+      {/* Hero */}
+      <section style={styles.hero}>
+        <div className="kap-blob" style={styles.heroBlob} />
+        <div style={styles.heroInner}>
+          <div className="hero-fade-1" style={styles.heroText}>
+            <div style={styles.heroTag}>
+              <span style={{ marginRight: "6px" }}>✦</span>Admissions 2026 open
+            </div>
+            <h1 style={styles.heroHeading}>
+              Build your future in <span style={styles.heroAccent}>pharmacy</span>
+            </h1>
+            <p style={styles.heroSub}>
+              India's leading academy for industry-integrated pharmacy
+              education, with placement support in the heart of Kerala.
+            </p>
+            <div style={styles.heroActions}>
+              <Link to="/apply" className="kap-btn-white" style={styles.btnWhite}>Apply now →</Link>
+              <Link to="/academics" className="kap-btn-outline" style={styles.btnOutline}>Explore programs</Link>
+            </div>
+          </div>
+
+          <div className="hero-fade-2" style={styles.heroMediaWrap}>
+            <video
+              style={styles.heroVideo}
+              src="/assets/videos/hero.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster="/assets/images/college.jpeg"
+            />
+            {!isMobile && (
+              <div className="kap-float-card" style={styles.floatCard}>
+                <div style={styles.floatStat}>
+                  <div style={styles.floatValue}>100%</div>
+                  <div style={styles.floatLabel}>Placement</div>
+                </div>
+                <div style={styles.floatDivider} />
+                <div style={styles.floatStat}>
+                  <div style={styles.floatValue}>1000+</div>
+                  <div style={styles.floatLabel}>Alumni</div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Wave transition */}
+        <svg
+          viewBox="0 0 1440 60"
+          preserveAspectRatio="none"
+          style={styles.wave}
+        >
+          <path d="M0,32 C360,80 1080,-16 1440,32 L1440,60 L0,60 Z" fill="#fff" />
+        </svg>
+      </section>
 
       {/* About */}
       <section style={styles.aboutSection}>
         <div style={styles.aboutText}>
           <div style={styles.eyebrow}>About KAP</div>
-          <h2 style={styles.aboutHeading}>
-            Welcome to Kerala Academy of Pharmacy
-          </h2>
+          <h2 style={styles.aboutHeading}>Welcome to Kerala Academy of Pharmacy</h2>
           <p style={styles.paragraphLeft}>
             KAP is beautifully located in Kattakada, Trivandrum — often referred to as
             the soul of Kerala. It boasts a well-designed campus with modern amenities
@@ -294,21 +183,11 @@ export default function Home() {
             KAP's mission is to equip students with pharmacy healthcare knowledge and
             skills, foster global competencies, instill strong values, and provide
             outstanding pharmacy education and services for community development.
-            Key highlights include international study tours for top-performing
-            students, industrial visits, business English programs, extensive
-            placement training, and the Advanced Learning Program (ALP).
           </p>
-          <Link to="/about" style={styles.textLink}>
-            Read more about KAP →
-          </Link>
+          <Link to="/about" className="kap-text-link" style={styles.textLink}>Read more about KAP →</Link>
         </div>
         <div style={styles.aboutImageWrap}>
-          <div
-            style={{
-              ...styles.aboutImage,
-              backgroundImage: "url(/assets/images/college.jpeg)",
-            }}
-          />
+          <div style={{ ...styles.aboutImage, backgroundImage: `url("/assets/images/college.jpeg")` }} />
         </div>
       </section>
 
@@ -317,7 +196,7 @@ export default function Home() {
         <div style={styles.sectionInner}>
           <div style={styles.sectionHeaderLeft}>
             <div style={styles.eyebrow}>Why KAP</div>
-            <h2 style={styles.sectionHeadingLeft}>Reasons to Study at KAP</h2>
+            <h2 style={styles.sectionHeadingLeft}>Reasons to study at KAP</h2>
             <p style={styles.sectionSubLeft}>
               Equipped with years of rich legacy, KAP imparts high quality,
               interdisciplinary education at an affordable cost.
@@ -325,8 +204,8 @@ export default function Home() {
           </div>
           <div style={styles.grid3}>
             {reasons.map((r) => (
-              <div style={styles.reasonCard} key={r.title}>
-                <div style={styles.iconCircle}>{r.icon}</div>
+              <div className="kap-lift" style={styles.reasonCard} key={r.title}>
+                <div className="kap-icon" style={styles.iconCircle}>{r.icon}</div>
                 <h3 style={styles.cardTitle}>{r.title}</h3>
                 <p style={styles.cardText}>{r.desc}</p>
               </div>
@@ -339,7 +218,7 @@ export default function Home() {
       <section style={styles.section}>
         <div style={styles.sectionHeaderLeft}>
           <div style={styles.eyebrow}>Programs</div>
-          <h2 style={styles.sectionHeadingLeft}>Our Courses</h2>
+          <h2 style={styles.sectionHeadingLeft}>Our courses</h2>
           <p style={styles.sectionSubLeft}>
             Explore the variety of courses offered by KAP, catering to aspiring
             pharmacists and healthcare professionals.
@@ -347,12 +226,10 @@ export default function Home() {
         </div>
         <div style={styles.grid3}>
           {courses.map((c) => (
-            <div style={styles.courseCard} key={c.title}>
-              <div
-                style={{ ...styles.courseImage, backgroundImage: `url("${c.image}")` }}
-              />
+            <div className="kap-lift" style={styles.courseCard} key={c.title}>
+              <div style={{ ...styles.courseImage, backgroundImage: `url("${c.image}")` }} />
               <h3 style={styles.courseTitle}>{c.title}</h3>
-              <Link to={c.link} style={styles.courseLink}>Read More →</Link>
+              <Link to={c.link} className="kap-text-link" style={styles.courseLink}>Read More →</Link>
             </div>
           ))}
         </div>
@@ -363,32 +240,21 @@ export default function Home() {
         <div style={styles.sectionInner}>
           <div style={styles.sectionHeaderLeft}>
             <div style={styles.eyebrow}>Blog</div>
-            <h2 style={styles.sectionHeadingLeft}>From Our Blog</h2>
+            <h2 style={styles.sectionHeadingLeft}>From our blog</h2>
           </div>
           <style>{`
-            @keyframes blogScroll {
-              from { transform: translateX(0); }
-              to { transform: translateX(-50%); }
-            }
-            .blog-track {
-              animation: blogScroll 35s linear infinite;
-            }
-            .blog-track:hover {
-              animation-play-state: paused;
-            }
+            @keyframes blogScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+            .blog-track { animation: blogScroll 35s linear infinite; }
+            .blog-track:hover { animation-play-state: paused; }
           `}</style>
           <div style={styles.blogScrollOuter}>
             <div className="blog-track" style={styles.blogTrack}>
               {[...blogs, ...blogs].map((b, i) => (
-                <div style={styles.blogCard} key={`${b.description}-${i}`}>
-                  <div
-                    style={{ ...styles.blogImage, backgroundImage: `url("${b.image}")` }}
-                  />
+                <div style={styles.blogCard} key={`${b.slug}-${i}`}>
+                  <div style={{ ...styles.blogImage, backgroundImage: `url("${b.image}")` }} />
                   <div style={styles.blogCardBody}>
                     <p style={styles.blogText}>{b.description}</p>
-                    <Link to="/blogs" style={styles.blogReadMore}>
-                      Read More →
-                    </Link>
+                    <Link to={`/blogs/${b.slug}`} style={styles.blogReadMore}>Read More →</Link>
                   </div>
                 </div>
               ))}
@@ -403,23 +269,111 @@ export default function Home() {
 }
 
 const getStyles = (isMobile) => ({
-  page: { fontFamily: "system-ui, sans-serif", color: "#24211f" },
+  page: { fontFamily: "system-ui, sans-serif", color: "#24211f", overflowX: "hidden" },
 
-  heroBand: {
-    background:
-      "radial-gradient(ellipse at top, #58191f 0%, #3a1418 55%, #2a0e11 100%)",
-    padding: isMobile ? "1px 12px 20px" : "1px 24px 32px",
+  hero: {
+    position: "relative",
+    background: "linear-gradient(135deg, #C41E1E 0%, #8E1616 100%)",
+    padding: isMobile ? "40px 20px 50px" : "60px 48px 90px",
+    overflow: "hidden",
   },
-  btnPrimary: {
-    background: "#6b1f27",
-    color: "#f8ecc9",
-    border: "none",
-    borderRadius: "6px",
-    padding: isMobile ? "11px 20px" : "12px 24px",
-    fontSize: "14px",
-    fontWeight: 500,
+  heroBlob: {
+    position: "absolute",
+    top: "-70px",
+    right: "-70px",
+    width: "240px",
+    height: "240px",
+    borderRadius: "50%",
+    background: "rgba(255,255,255,0.06)",
+  },
+  heroInner: {
+    position: "relative",
+    zIndex: 2,
+    display: "flex",
+    flexDirection: isMobile ? "column" : "row",
+    alignItems: "center",
+    gap: isMobile ? "28px" : "48px",
+  },
+  heroText: { flex: 1.1 },
+  heroTag: {
+    display: "inline-flex",
+    alignItems: "center",
+    background: "rgba(255,255,255,0.15)",
+    color: "#fff",
+    fontSize: "12px",
+    fontWeight: 600,
+    padding: "6px 14px",
+    borderRadius: "20px",
+    marginBottom: "20px",
+  },
+  heroHeading: {
+    fontSize: isMobile ? "28px" : "42px",
+    color: "#fff",
+    lineHeight: 1.15,
+    margin: "0 0 18px",
+  },
+  heroAccent: { color: "#FFD166" },
+  heroSub: {
+    color: "#FBD5D5",
+    fontSize: isMobile ? "13.5px" : "15px",
+    lineHeight: 1.6,
+    maxWidth: "420px",
+    margin: "0 0 30px",
+  },
+  heroActions: { display: "flex", gap: "12px", flexWrap: "wrap" },
+  btnWhite: {
+    background: "#fff",
+    color: "#C41E1E",
     textDecoration: "none",
-    display: "inline-block",
+    padding: "13px 26px",
+    borderRadius: "30px",
+    fontSize: "14px",
+    fontWeight: 700,
+  },
+  btnOutline: {
+    background: "transparent",
+    color: "#fff",
+    textDecoration: "none",
+    padding: "12px 26px",
+    borderRadius: "30px",
+    fontSize: "14px",
+    fontWeight: 700,
+    border: "1.5px solid rgba(255,255,255,0.5)",
+  },
+
+  heroMediaWrap: { flex: 1, width: "100%", position: "relative" },
+  heroVideo: {
+    width: "100%",
+    height: isMobile ? "220px" : "270px",
+    objectFit: "cover",
+    borderRadius: "20px",
+    display: "block",
+    border: "3px solid rgba(255,255,255,0.2)",
+  },
+  floatCard: {
+    position: "absolute",
+    bottom: "-20px",
+    left: "-18px",
+    background: "#fff",
+    borderRadius: "14px",
+    padding: "14px 20px",
+    boxShadow: "0 14px 34px rgba(0,0,0,0.22)",
+    display: "flex",
+    alignItems: "center",
+    gap: "16px",
+  },
+  floatStat: { textAlign: "center" },
+  floatValue: { fontSize: "18px", fontWeight: 800, color: "#C41E1E" },
+  floatLabel: { fontSize: "10px", color: "#6b625a" },
+  floatDivider: { width: "1px", height: "28px", background: "#eee" },
+
+  wave: {
+    position: "absolute",
+    bottom: "-2px",
+    left: 0,
+    width: "100%",
+    height: isMobile ? "30px" : "50px",
+    display: "block",
   },
 
   aboutSection: {
@@ -427,15 +381,20 @@ const getStyles = (isMobile) => ({
     flexDirection: isMobile ? "column" : "row",
     alignItems: "center",
     gap: isMobile ? "24px" : "48px",
-
-    padding: isMobile ? "36px 20px" : "64px 40px",
+    padding: isMobile ? "36px 20px" : "64px 48px",
   },
-  aboutText: {
-    flex: 1,
+  aboutText: { flex: 1 },
+  eyebrow: {
+    fontSize: "11px",
+    letterSpacing: "0.12em",
+    color: "#C41E1E",
+    textTransform: "uppercase",
+    fontWeight: 700,
+    marginBottom: "10px",
   },
   aboutHeading: {
     fontSize: isMobile ? "21px" : "26px",
-    color: "#3a1418",
+    color: "#1a1615",
     marginBottom: "16px",
     lineHeight: 1.3,
   },
@@ -445,177 +404,85 @@ const getStyles = (isMobile) => ({
     color: "#4a433e",
     marginBottom: "16px",
   },
-  textLink: {
-    color: "#6b1f27",
-    fontSize: "13.5px",
-    fontWeight: 600,
-    textDecoration: "none",
-  },
-  aboutImageWrap: {
-    flex: 1,
-    width: "100%",
-  },
+  textLink: { color: "#C41E1E", fontSize: "13.5px", fontWeight: 700, textDecoration: "none" },
+  aboutImageWrap: { flex: 1, width: "100%" },
   aboutImage: {
     width: "100%",
     height: isMobile ? "220px" : "340px",
-    borderRadius: "16px",
+    borderRadius: "20px",
     backgroundSize: "cover",
     backgroundPosition: "center",
-    backgroundColor: "#ece6d8",
-    boxShadow: "0 10px 30px rgba(58,20,24,0.15)",
+    backgroundColor: "#f1e5e5",
+    boxShadow: "0 14px 34px rgba(196,30,30,0.15)",
   },
 
-  sectionHeaderLeft: {
-    marginBottom: "32px",
-    maxWidth: "560px",
-  },
-  sectionHeadingLeft: {
-    fontSize: isMobile ? "20px" : "24px",
-    color: "#3a1418",
-    marginBottom: "10px",
-  },
-  sectionSubLeft: {
-    color: "#6b625a",
-    fontSize: isMobile ? "13px" : "14px",
-    lineHeight: 1.6,
-  },
-
-  section: {
-    padding: isMobile ? "36px 20px" : "56px 40px",
-
-  },
-  sectionShaded: {
-    background: "#fbf8f3",
-  },
-  sectionInner: {
-    padding: isMobile ? "36px 20px" : "56px 40px",
-
-  },
-  eyebrow: {
-    fontSize: "11px",
-    letterSpacing: "0.12em",
-    color: "#9c7a22",
-    textTransform: "uppercase",
-    marginBottom: "10px",
-    fontWeight: 600,
-  },
-  sectionHeading: {
-    fontSize: isMobile ? "20px" : "24px",
-    color: "#3a1418",
-    textAlign: "center",
-    marginBottom: "16px",
-  },
-  paragraph: {
-    fontSize: isMobile ? "13.5px" : "14.5px",
-    lineHeight: 1.8,
-    color: "#4a433e",
-    marginBottom: "16px",
-  },
+  section: { padding: isMobile ? "32px 20px" : "56px 48px" },
+  sectionShaded: { background: "#FFF6EF" },
+  sectionInner: { padding: isMobile ? "32px 20px" : "56px 48px" },
+  sectionHeaderLeft: { marginBottom: "32px", maxWidth: "560px" },
+  sectionHeadingLeft: { fontSize: isMobile ? "20px" : "26px", color: "#1a1615", marginBottom: "10px" },
+  sectionSubLeft: { color: "#6b625a", fontSize: isMobile ? "13px" : "14px", lineHeight: 1.6 },
 
   grid3: {
     display: "grid",
     gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
-    gap: isMobile ? "16px" : "22px",
+    gap: isMobile ? "14px" : "22px",
   },
   reasonCard: {
     background: "#fff",
-    borderRadius: "12px",
+    borderRadius: "16px",
     padding: "30px 22px",
     textAlign: "center",
-    boxShadow: "0 4px 20px rgba(58,20,24,0.06)",
+    boxShadow: "0 4px 20px rgba(196,30,30,0.08)",
+    cursor: "default",
   },
   iconCircle: {
-    width: "48px",
-    height: "48px",
+    width: "50px",
+    height: "50px",
     borderRadius: "50%",
-    background: "#6b1f27",
+    background: "linear-gradient(135deg, #C41E1E, #8E1616)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     margin: "0 auto 16px",
     fontSize: "22px",
   },
-  cardTitle: {
-    fontSize: "15px",
-    color: "#3a1418",
-    marginBottom: "8px",
-    fontWeight: 600,
-  },
-  cardText: {
-    fontSize: "13px",
-    color: "#6b625a",
-    lineHeight: 1.65,
-  },
+  cardTitle: { fontSize: "15px", color: "#1a1615", marginBottom: "8px", fontWeight: 700 },
+  cardText: { fontSize: "13px", color: "#6b625a", lineHeight: 1.65 },
 
   courseCard: {
     background: "#fff",
-    borderRadius: "12px",
+    borderRadius: "16px",
     overflow: "hidden",
     textAlign: "center",
     paddingBottom: "18px",
-    boxShadow: "0 4px 20px rgba(58,20,24,0.06)",
+    boxShadow: "0 4px 20px rgba(196,30,30,0.08)",
   },
-  courseImage: {
-    width: "100%",
-    height: isMobile ? "160px" : "140px",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundColor: "#ece6d8",
-  },
-  courseTitle: {
-    fontSize: "14.5px",
-    color: "#3a1418",
-    margin: "14px 12px 8px",
-  },
-  courseLink: {
-    color: "#6b1f27",
-    fontSize: "13px",
-    textDecoration: "none",
-    fontWeight: 500,
-  },
+  courseImage: { width: "100%", height: isMobile ? "160px" : "140px", backgroundSize: "cover", backgroundPosition: "center", backgroundColor: "#f1e5e5" },
+  courseTitle: { fontSize: "14.5px", color: "#1a1615", margin: "14px 12px 8px" },
+  courseLink: { color: "#C41E1E", fontSize: "13px", textDecoration: "none", fontWeight: 700 },
 
-  blogScrollOuter: {
-    overflow: "hidden",
-    width: "100%",
-  },
-  blogTrack: {
-    display: "flex",
-    gap: "20px",
-    width: "max-content",
-  },
+  blogScrollOuter: { overflow: "hidden", width: "100%" },
+  blogTrack: { display: "flex", gap: "20px", width: "max-content" },
   blogCard: {
     flex: "0 0 auto",
     width: isMobile ? "220px" : "280px",
     background: "#fff",
-    borderRadius: "14px",
+    borderRadius: "16px",
     overflow: "hidden",
-    boxShadow: "0 4px 20px rgba(58,20,24,0.08)",
+    boxShadow: "0 4px 20px rgba(196,30,30,0.1)",
   },
-  blogImage: {
-    width: "100%",
-    height: isMobile ? "140px" : "170px",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundColor: "#ece6d8",
-  },
-  blogCardBody: {
-    padding: "16px",
-  },
-  blogText: {
-    fontSize: "13.5px",
-    color: "#3a1418",
-    margin: "0 0 12px",
-    lineHeight: 1.55,
-    minHeight: "40px",
-  },
+  blogImage: { width: "100%", height: isMobile ? "140px" : "170px", backgroundSize: "cover", backgroundPosition: "center", backgroundColor: "#f1e5e5" },
+  blogCardBody: { padding: "16px" },
+  blogText: { fontSize: "13.5px", color: "#1a1615", margin: "0 0 12px", lineHeight: 1.55, minHeight: "40px" },
   blogReadMore: {
     display: "inline-block",
     fontSize: "12.5px",
-    fontWeight: 600,
+    fontWeight: 700,
     color: "#fff",
-    background: "#6b1f27",
+    background: "#C41E1E",
     padding: "7px 14px",
-    borderRadius: "6px",
+    borderRadius: "20px",
     textDecoration: "none",
   },
 
@@ -629,52 +496,18 @@ const getStyles = (isMobile) => ({
   studyDim: {
     position: "absolute",
     inset: 0,
-    background:
-      "linear-gradient(180deg, rgba(58,20,24,0.55) 0%, rgba(58,20,24,0.75) 100%)",
+    background: "linear-gradient(180deg, rgba(142,22,22,0.55) 0%, rgba(80,19,19,0.85) 100%)",
   },
   studyOverlay: {
     position: "relative",
     zIndex: 1,
-    padding: isMobile ? "40px 20px" : "64px 40px",
+    padding: isMobile ? "40px 20px" : "64px 48px",
     textAlign: "center",
-    color: "#f8ecc9",
-
+    color: "#fff",
+    maxWidth: "700px",
+    margin: "0 auto",
   },
-  studyHeading: {
-    fontSize: isMobile ? "18px" : "22px",
-    marginBottom: "4px",
-  },
-  studySubheading: {
-    fontSize: isMobile ? "20px" : "26px",
-    letterSpacing: "0.05em",
-    color: "#e8c95f",
-    marginBottom: "16px",
-  },
-  studyText: {
-    fontSize: isMobile ? "13px" : "14px",
-    lineHeight: 1.7,
-    color: "#e8dcc4",
-  },
-
-  cta: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: "20px",
-    flexWrap: "wrap",
-    flexDirection: isMobile ? "column" : "row",
-    textAlign: isMobile ? "center" : "left",
-    background: "#f3ecdd",
-    padding: isMobile ? "28px 20px" : "36px 48px",
-  },
-  ctaHeading: {
-    fontSize: isMobile ? "17px" : "19px",
-    margin: "0 0 6px",
-    color: "#3a1418",
-  },
-  ctaText: {
-    fontSize: "13.5px",
-    color: "#6b625a",
-    margin: 0,
-  },
+  studyHeading: { fontSize: isMobile ? "18px" : "22px", marginBottom: "4px" },
+  studySubheading: { fontSize: isMobile ? "20px" : "26px", letterSpacing: "0.05em", color: "#FFD166", marginBottom: "16px" },
+  studyText: { fontSize: isMobile ? "13px" : "14px", lineHeight: 1.7, color: "#FCEBEB" },
 });
