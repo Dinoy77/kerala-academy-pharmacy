@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import CongratsPopup from "./CongratsPopup";
 
@@ -83,78 +83,210 @@ function StudySection({ styles }) {
 export default function Home() {
   const isMobile = useResponsive();
   const styles = getStyles(isMobile);
+  const videoRef = useRef(null);
+  const [muted, setMuted] = useState(true);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setMuted(videoRef.current.muted);
+    }
+  };
 
   return (
     <div style={styles.page}>
       <CongratsPopup />
 
       <style>{`
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes floatBlob { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(14px) scale(1.06); } }
-        @keyframes floatCardBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        @keyframes ctaPulse { 0%, 100% { box-shadow: 0 6px 16px rgba(0,0,0,0.15); } 50% { box-shadow: 0 6px 22px rgba(255,209,102,0.5); } }
-        .hero-fade-1 { animation: fadeUp 0.6s ease both; }
-        .hero-fade-2 { animation: fadeUp 0.6s ease 0.1s both; }
-        .kap-blob { animation: floatBlob 6s ease-in-out infinite; }
-        .kap-float-card { animation: floatCardBounce 3.5s ease-in-out infinite; }
-        .kap-btn-white { animation: ctaPulse 2.4s ease-in-out infinite; transition: transform 0.15s ease, background 0.15s ease; }
-        .kap-btn-white:hover { animation-play-state: paused; background: #FFF3D6; transform: translateY(-2px); }
-        .kap-btn-outline { transition: background 0.15s ease, transform 0.15s ease; }
-        .kap-btn-outline:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
-        .kap-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .kap-lift:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(196,30,30,0.16); }
+        @keyframes fadeUp { 
+          from { opacity: 0; transform: translateY(20px); } 
+          to { opacity: 1; transform: translateY(0); } 
+        }
+        @keyframes floatCardBounce { 
+          0%, 100% { transform: translateY(0); } 
+          50% { transform: translateY(-8px); } 
+        }
+        @keyframes pulseGlow {
+          0% { transform: scale(0.95); opacity: 0.8; }
+          50% { transform: scale(1.25); opacity: 1; }
+          100% { transform: scale(0.95); opacity: 0.8; }
+        }
+        @keyframes blogScroll { 
+          from { transform: translateX(0); } 
+          to { transform: translateX(-50%); } 
+        }
+        @keyframes shimmerText {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 200% 50%; }
+        }
+        @keyframes drawSquiggle {
+          from { stroke-dashoffset: 240; }
+          to { stroke-dashoffset: 0; }
+        }
+
+        .hero-fade-1 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        .kap-float-card { animation: floatCardBounce 4s ease-in-out infinite; }
+        .blog-track { animation: blogScroll 35s linear infinite; }
+        .blog-track:hover { animation-play-state: paused; }
+
+        .kap-badge-glow {
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .kap-btn-primary {
+          background: linear-gradient(135deg, #ffffff 0%, #fff3d6 100%);
+          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+        .kap-btn-primary:hover {
+          transform: translateY(-3px) scale(1.02);
+          box-shadow: 0 12px 28px rgba(255, 209, 102, 0.4);
+        }
+
+        .kap-btn-outline { 
+          transition: all 0.25s ease; 
+        }
+        .kap-btn-outline:hover { 
+          background: rgba(255, 255, 255, 0.18); 
+          border-color: rgba(255, 255, 255, 0.8);
+          transform: translateY(-2px); 
+        }
+
+        .kap-lift { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+        .kap-lift:hover { transform: translateY(-5px); box-shadow: 0 14px 34px rgba(196,30,30,0.16); }
         .kap-icon { transition: transform 0.25s ease; }
         .kap-lift:hover .kap-icon { transform: rotate(-8deg) scale(1.1); }
+
         .kap-text-link { position: relative; }
-        .kap-text-link::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 1.5px; background: currentColor; transition: width 0.2s ease; }
+        .kap-text-link::after { 
+          content: ""; 
+          position: absolute; 
+          left: 0; 
+          bottom: -2px; 
+          width: 0; 
+          height: 1.5px; 
+          background: currentColor; 
+          transition: width 0.2s ease; 
+        }
         .kap-text-link:hover::after { width: 100%; }
+
+        .kap-shimmer-word {
+          background: linear-gradient(90deg, #FFD166 0%, #fff3c4 25%, #FFA07A 50%, #FFD166 75%, #fff3c4 100%);
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: shimmerText 3.5s linear infinite;
+          position: relative;
+          display: inline-block;
+        }
+        .kap-squiggle path {
+          stroke-dasharray: 240;
+          stroke-dashoffset: 240;
+          animation: drawSquiggle 1s ease 0.6s forwards;
+        }
       `}</style>
 
-      {/* Hero */}
+      {/* Hero — Full Background Video */}
       <section style={styles.hero}>
-        <div className="kap-blob" style={styles.heroBlob} />
+        <video
+          ref={videoRef}
+          style={styles.heroVideoBg}
+          src="/assets/videos/hero.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/assets/images/college.jpeg"
+        />
+        <div style={styles.heroVideoOverlay} />
+
+        <button
+          onClick={toggleMute}
+          style={styles.muteBtn}
+          aria-label={muted ? "Unmute video" : "Mute video"}
+        >
+          {muted ? (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <line x1="23" y1="9" x2="17" y2="15" />
+              <line x1="17" y1="9" x2="23" y2="15" />
+            </svg>
+          ) : (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+            </svg>
+          )}
+        </button>
+
         <div style={styles.heroInner}>
           <div className="hero-fade-1" style={styles.heroText}>
-            <div style={styles.heroTag}>
-              <span style={{ marginRight: "6px" }}>✦</span>Admissions 2026 open
+
+            {/* Admissions Badge */}
+            <div className="kap-badge-glow" style={styles.heroTag}>
+              <span style={styles.badgePulse} />
+              <span style={{ marginRight: "6px", color: "#FFD166" }}>✦</span>
+              <span>Admissions 2026 Open</span>
             </div>
+
+            {/* Headline — eye-catching treatment on "pharmacy" */}
             <h1 style={styles.heroHeading}>
-              Build your future in <span style={styles.heroAccent}>pharmacy</span>
+              Build your future in{" "}
+              <span style={styles.heroAccentWrap}>
+                <span className="kap-shimmer-word">pharmacy</span>
+                <svg
+                  className="kap-squiggle"
+                  viewBox="0 0 240 20"
+                  style={styles.squiggleSvg}
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M2 12 Q 30 2, 60 12 T 118 12 T 176 12 T 236 12"
+                    fill="none"
+                    stroke="#FFD166"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
             </h1>
+
+            {/* Description */}
             <p style={styles.heroSub}>
-              India's leading academy for industry-integrated pharmacy
-              education, with placement support in the heart of Kerala.
+              India's leading academy for industry-integrated pharmacy education,
+              with placement support in the heart of Kerala.
             </p>
+
+            {/* Action Buttons */}
             <div style={styles.heroActions}>
-              <Link to="/apply" className="kap-btn-white" style={styles.btnWhite}>Apply now →</Link>
-              <Link to="/academics" className="kap-btn-outline" style={styles.btnOutline}>Explore programs</Link>
+              <Link to="/apply" className="kap-btn-primary" style={styles.btnPrimary}>
+                Apply now <span style={{ transition: "transform 0.2s ease" }}>→</span>
+              </Link>
+              <Link to="/academics" className="kap-btn-outline" style={styles.btnOutline}>
+                Explore programs
+              </Link>
             </div>
           </div>
 
-          <div className="hero-fade-2" style={styles.heroMediaWrap}>
-            <video
-              style={styles.heroVideo}
-              src="/assets/videos/hero.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster="/assets/images/college.jpeg"
-            />
-            {!isMobile && (
-              <div className="kap-float-card" style={styles.floatCard}>
-                <div style={styles.floatStat}>
-                  <div style={styles.floatValue}>100%</div>
-                  <div style={styles.floatLabel}>Placement</div>
-                </div>
-                <div style={styles.floatDivider} />
-                <div style={styles.floatStat}>
-                  <div style={styles.floatValue}>1000+</div>
-                  <div style={styles.floatLabel}>Alumni</div>
-                </div>
+          {/* Floating Metric Card */}
+          {!isMobile && (
+            <div className="kap-float-card" style={styles.floatCardGlass}>
+              <div style={styles.floatStat}>
+                <div style={styles.floatValue}>100%</div>
+                <div style={styles.floatLabel}>Placement Record</div>
               </div>
-            )}
-          </div>
+              <div style={styles.floatDivider} />
+              <div style={styles.floatStat}>
+                <div style={styles.floatValue}>1000+</div>
+                <div style={styles.floatLabel}>Global Alumni</div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Wave transition */}
@@ -242,11 +374,6 @@ export default function Home() {
             <div style={styles.eyebrow}>Blog</div>
             <h2 style={styles.sectionHeadingLeft}>From our blog</h2>
           </div>
-          <style>{`
-            @keyframes blogScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-            .blog-track { animation: blogScroll 35s linear infinite; }
-            .blog-track:hover { animation-play-state: paused; }
-          `}</style>
           <div style={styles.blogScrollOuter}>
             <div className="blog-track" style={styles.blogTrack}>
               {[...blogs, ...blogs].map((b, i) => (
@@ -269,103 +396,155 @@ export default function Home() {
 }
 
 const getStyles = (isMobile) => ({
-  page: { fontFamily: "system-ui, sans-serif", color: "#24211f", overflowX: "hidden" },
+  page: { fontFamily: "system-ui, -apple-system, sans-serif", color: "#24211f", overflowX: "hidden" },
 
   hero: {
     position: "relative",
-    background: "linear-gradient(135deg, #C41E1E 0%, #8E1616 100%)",
-    padding: isMobile ? "40px 20px 50px" : "60px 48px 90px",
+    minHeight: isMobile ? "480px" : "600px",
+    display: "flex",
+    alignItems: "center",
     overflow: "hidden",
   },
-  heroBlob: {
+  heroVideoBg: {
     position: "absolute",
-    top: "-70px",
-    right: "-70px",
-    width: "240px",
-    height: "240px",
+    inset: 0,
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+  },
+  heroVideoOverlay: {
+    position: "absolute",
+    inset: 0,
+    background:
+      "linear-gradient(115deg, rgba(162, 18, 18, 0.5) 0%, rgba(110, 15, 15, 0.4) 45%, rgba(40, 8, 8, 0.3) 100%)",
+  },
+  muteBtn: {
+    position: "absolute",
+    bottom: "24px",
+    right: "24px",
+    zIndex: 3,
+    width: "42px",
+    height: "42px",
     borderRadius: "50%",
-    background: "rgba(255,255,255,0.06)",
+    background: "rgba(0, 0, 0, 0.45)",
+    backdropFilter: "blur(4px)",
+    WebkitBackdropFilter: "blur(4px)",
+    border: "1px solid rgba(255, 255, 255, 0.3)",
+    color: "#fff",
+    fontSize: "16px",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   heroInner: {
     position: "relative",
     zIndex: 2,
-    display: "flex",
-    flexDirection: isMobile ? "column" : "row",
-    alignItems: "center",
-    gap: isMobile ? "28px" : "48px",
+    width: "100%",
+    padding: isMobile ? "48px 20px 64px" : "0 56px",
   },
-  heroText: { flex: 1.1 },
+  heroText: { maxWidth: "620px" },
   heroTag: {
     display: "inline-flex",
     alignItems: "center",
-    background: "rgba(255,255,255,0.15)",
-    color: "#fff",
-    fontSize: "12px",
+    background: "rgba(255, 255, 255, 0.12)",
+    color: "#ffffff",
+    fontSize: "12.5px",
     fontWeight: 600,
-    padding: "6px 14px",
-    borderRadius: "20px",
-    marginBottom: "20px",
+    padding: "7px 16px",
+    borderRadius: "30px",
+    marginBottom: "22px",
+    letterSpacing: "0.03em",
+  },
+  badgePulse: {
+    width: "7px",
+    height: "7px",
+    borderRadius: "50%",
+    backgroundColor: "#22c55e",
+    marginRight: "10px",
+    display: "inline-block",
+    animation: "pulseGlow 2s infinite ease-in-out",
   },
   heroHeading: {
-    fontSize: isMobile ? "28px" : "42px",
+    fontSize: isMobile ? "34px" : "54px",
+    fontWeight: 800,
     color: "#fff",
-    lineHeight: 1.15,
-    margin: "0 0 18px",
+    lineHeight: 1.14,
+    margin: "0 0 20px",
+    letterSpacing: "-0.01em",
+    textShadow: "0 4px 20px rgba(0,0,0,0.25)",
   },
-  heroAccent: { color: "#FFD166" },
+  heroAccentWrap: {
+    position: "relative",
+    display: "inline-block",
+  },
+  squiggleSvg: {
+    position: "absolute",
+    left: 0,
+    bottom: isMobile ? "-8px" : "-12px",
+    width: "100%",
+    height: isMobile ? "12px" : "16px",
+  },
   heroSub: {
-    color: "#FBD5D5",
-    fontSize: isMobile ? "13.5px" : "15px",
+    color: "#FCEBEB",
+    fontSize: isMobile ? "14px" : "16px",
     lineHeight: 1.6,
-    maxWidth: "420px",
-    margin: "0 0 30px",
+    maxWidth: "460px",
+    margin: "0 0 32px",
+    textShadow: "0 1px 6px rgba(0,0,0,0.2)",
   },
-  heroActions: { display: "flex", gap: "12px", flexWrap: "wrap" },
-  btnWhite: {
-    background: "#fff",
-    color: "#C41E1E",
+  heroActions: { display: "flex", gap: "14px", flexWrap: "wrap", alignItems: "center" },
+  btnPrimary: {
+    color: "#A21212",
     textDecoration: "none",
-    padding: "13px 26px",
+    padding: "14px 28px",
     borderRadius: "30px",
-    fontSize: "14px",
+    fontSize: "14.5px",
     fontWeight: 700,
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "8px",
   },
   btnOutline: {
     background: "transparent",
     color: "#fff",
     textDecoration: "none",
-    padding: "12px 26px",
+    padding: "13px 28px",
     borderRadius: "30px",
-    fontSize: "14px",
+    fontSize: "14.5px",
     fontWeight: 700,
-    border: "1.5px solid rgba(255,255,255,0.5)",
+    border: "1.5px solid rgba(255, 255, 255, 0.45)",
   },
 
-  heroMediaWrap: { flex: 1, width: "100%", position: "relative" },
-  heroVideo: {
-    width: "100%",
-    height: isMobile ? "220px" : "270px",
-    objectFit: "cover",
-    borderRadius: "20px",
-    display: "block",
-    border: "3px solid rgba(255,255,255,0.2)",
-  },
-  floatCard: {
-    position: "absolute",
-    bottom: "-20px",
-    left: "-18px",
-    background: "#fff",
-    borderRadius: "14px",
-    padding: "14px 20px",
-    boxShadow: "0 14px 34px rgba(0,0,0,0.22)",
-    display: "flex",
+  floatCardGlass: {
+    marginTop: "40px",
+    display: "inline-flex",
+    background: "rgba(255, 255, 255, 0.88)",
+    backdropFilter: "blur(12px)",
+    WebkitBackdropFilter: "blur(12px)",
+    borderRadius: "18px",
+    padding: "16px 28px",
+    boxShadow: "0 20px 40px rgba(0, 0, 0, 0.22)",
+    border: "1px solid rgba(255, 255, 255, 0.6)",
     alignItems: "center",
-    gap: "16px",
+    gap: "24px",
   },
   floatStat: { textAlign: "center" },
-  floatValue: { fontSize: "18px", fontWeight: 800, color: "#C41E1E" },
-  floatLabel: { fontSize: "10px", color: "#6b625a" },
-  floatDivider: { width: "1px", height: "28px", background: "#eee" },
+  floatValue: {
+    fontSize: "22px",
+    fontWeight: 800,
+    color: "#C41E1E",
+    letterSpacing: "-0.02em"
+  },
+  floatLabel: {
+    fontSize: "11px",
+    fontWeight: 600,
+    color: "#4a433e",
+    textTransform: "uppercase",
+    letterSpacing: "0.05em",
+    marginTop: "2px"
+  },
+  floatDivider: { width: "1px", height: "32px", background: "rgba(0,0,0,0.08)" },
 
   wave: {
     position: "absolute",
@@ -374,6 +553,7 @@ const getStyles = (isMobile) => ({
     width: "100%",
     height: isMobile ? "30px" : "50px",
     display: "block",
+    zIndex: 2,
   },
 
   aboutSection: {

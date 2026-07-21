@@ -13,6 +13,14 @@ function useResponsive() {
   return width < 768;
 }
 
+const utilityLinks = [
+  { label: "Campus", to: "/campus" },
+  { label: "Contact", to: "/contact" },
+  { label: "Career", to: "/career" },
+  { label: "FAQ", to: "/faq" },
+  { label: "Travel Information", to: "/travel-information" },
+];
+
 const socialLinks = [
   { label: "Facebook", href: "https://www.facebook.com/kerala.academy.of.pharmacy.trivandrum/" },
   { label: "Instagram", href: "https://www.instagram.com/keralaacdemyofpharmacy/" },
@@ -48,7 +56,24 @@ export default function Footer() {
         .footer-link:hover { color: #f8ecc9 !important; }
         .footer-social:hover { background: #c9a227 !important; color: #2a0e11 !important; }
         .footer-cta-btn:hover { background: #e0b830 !important; }
+        .footer-utility-link:hover { color: #f8ecc9 !important; }
       `}</style>
+
+      <div style={styles.utilityStrip}>
+        <div style={styles.utilityLinks}>
+          {utilityLinks.map((link) => (
+            <Link
+              key={link.label}
+              to={link.to}
+              style={styles.utilityLink}
+              className="footer-utility-link"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+        <div style={styles.utilityHelpline}>Helpline: +91-8951220590</div>
+      </div>
 
       <div style={styles.grid}>
         {/* Logo + social */}
@@ -134,6 +159,31 @@ const getStyles = (isMobile) => ({
     color: "#e8dcc4",
     fontFamily: "system-ui, sans-serif",
     borderTop: "3px solid #c9a227",
+  },
+  utilityStrip: {
+    display: "flex",
+    flexDirection: isMobile ? "column" : "row",
+    alignItems: isMobile ? "flex-start" : "center",
+    justifyContent: "space-between",
+    gap: isMobile ? "10px" : "0",
+    padding: isMobile ? "14px 24px" : "12px 40px",
+    background: "rgba(0,0,0,0.15)",
+    borderBottom: "1px solid rgba(255,255,255,0.08)",
+  },
+  utilityLinks: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: isMobile ? "12px" : "22px",
+  },
+  utilityLink: {
+    color: "#c9bba0",
+    textDecoration: "none",
+    fontSize: "12.5px",
+  },
+  utilityHelpline: {
+    color: "#c9a227",
+    fontWeight: 700,
+    fontSize: "12.5px",
   },
   ctaStrip: {
     background: "linear-gradient(135deg, #58191f, #3a1418)",
