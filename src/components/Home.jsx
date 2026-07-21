@@ -15,26 +15,38 @@ function useResponsive() {
 }
 
 const reasons = [
-  { title: "World Class Faculty", desc: "Outstanding and highly qualified faculty members with an excellent curriculum framed with academics and industry experts.", icon: "🎓" },
-  { title: "Pioneering Research", desc: "Hands-on opportunities to work under expert guidance, using the latest facilities and tools to discover and publish.", icon: "🔬" },
-  { title: "Global Exposure", desc: "Collaborations with top national and international universities through transformative exchange programmes.", icon: "🌍" },
+  { 
+    title: "World Class Faculty", 
+    desc: "Outstanding and highly qualified faculty members with an excellent curriculum framed with academics and industry experts.", 
+    icon: "🎓" 
+  },
+  { 
+    title: "Pioneering Research", 
+    desc: "Hands-on opportunities to work under expert guidance, using the latest facilities and tools to discover and publish.", 
+    icon: "🔬" 
+  },
+  { 
+    title: "Global Exposure", 
+    desc: "Collaborations with top national and international universities through transformative exchange programmes.", 
+    icon: "🌍" 
+  },
 ];
 
 const courses = [
-  { title: "B-Pharm — 4 Years", image: "/assets/images/lab.jpeg", link: "/bpharm" },
-  { title: "D-Pharm — 2 Years", image: "/assets/images/lab2.jpeg", link: "/dpharm" },
-  { title: "B-Pharm (Lateral Entry) — 3 Years", image: "/assets/images/kap2.jpeg", link: "/mpharm" },
+  { title: "B-Pharm", duration: "4 Years", image: "/assets/images/lab.jpeg", link: "/bpharm" },
+  { title: "D-Pharm", duration: "2 Years", image: "/assets/images/lab2.jpeg", link: "/dpharm" },
+  { title: "B-Pharm (Lateral Entry)", duration: "3 Years", image: "/assets/images/kap2.jpeg", link: "/mpharm" },
 ];
 
 const blogs = [
-  { image: "/assets/images/lab.jpeg", description: "Study about pharmaceutical chemistry.", slug: "blogh1" },
-  { image: "/assets/images/lab2.jpeg", description: "Study about Pharma practice.", slug: "blogh2" },
-  { image: "/assets/images/kap2.jpeg", description: "Study about Pharmaceutics.", slug: "blogh3" },
-  { image: "/assets/images/kap3.jpeg", description: "Study about pharmacognosy and Phytochemistry.", slug: "blogh4" },
-  { image: "/assets/images/lab.jpeg", description: "Study about pharmacology.", slug: "blogh5" },
-  { image: "/assets/images/cls.jpeg", description: "Pharmacopoeia.", slug: "blogh6" },
-  { image: "/assets/images/lab2.jpeg", description: "How to become a Pharmacist.", slug: "blogh7" },
-  { image: "/assets/images/b17.jpg", description: "Why Pharmacy is a good career.", slug: "blogh8" },
+  { image: "/assets/images/lab.jpeg", description: "Study about pharmaceutical chemistry.", tag: "Chemistry", slug: "blogh1" },
+  { image: "/assets/images/lab2.jpeg", description: "Study about Pharma practice.", tag: "Practice", slug: "blogh2" },
+  { image: "/assets/images/kap2.jpeg", description: "Study about Pharmaceutics.", tag: "Pharmaceutics", slug: "blogh3" },
+  { image: "/assets/images/kap3.jpeg", description: "Study about pharmacognosy and Phytochemistry.", tag: "Research", slug: "blogh4" },
+  { image: "/assets/images/lab.jpeg", description: "Study about pharmacology.", tag: "Pharmacology", slug: "blogh5" },
+  { image: "/assets/images/cls.jpeg", description: "Pharmacopoeia.", tag: "Guide", slug: "blogh6" },
+  { image: "/assets/images/lab2.jpeg", description: "How to become a Pharmacist.", tag: "Career", slug: "blogh7" },
+  { image: "/assets/images/b17.jpg", description: "Why Pharmacy is a good career.", tag: "Insights", slug: "blogh8" },
 ];
 
 const tvmImages = [
@@ -155,21 +167,43 @@ export default function Home() {
           transform: translateY(-2px); 
         }
 
-        .kap-lift { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-        .kap-lift:hover { transform: translateY(-5px); box-shadow: 0 14px 34px rgba(196,30,30,0.16); }
-        .kap-icon { transition: transform 0.25s ease; }
-        .kap-lift:hover .kap-icon { transform: rotate(-8deg) scale(1.1); }
+        /* Lift and hover animations for cards */
+        .kap-lift { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+        .kap-lift:hover { 
+          transform: translateY(-6px); 
+          box-shadow: 0 16px 32px rgba(196, 30, 30, 0.12);
+          border-color: #FEE2E2;
+        }
 
-        .kap-text-link { position: relative; }
+        .kap-icon { transition: transform 0.3s ease; }
+        .kap-lift:hover .kap-icon { transform: rotate(-8deg) scale(1.12); }
+
+        /* Course image zoom effect */
+        .kap-course-card:hover .kap-course-img {
+          transform: scale(1.06);
+        }
+        .kap-course-img {
+          transition: transform 0.4s ease;
+        }
+
+        /* Blog image zoom effect */
+        .kap-blog-card:hover .kap-blog-img {
+          transform: scale(1.06);
+        }
+        .kap-blog-img {
+          transition: transform 0.4s ease;
+        }
+
+        .kap-text-link { position: relative; display: inline-flex; alignItems: center; gap: 4px; }
         .kap-text-link::after { 
           content: ""; 
           position: absolute; 
           left: 0; 
           bottom: -2px; 
           width: 0; 
-          height: 1.5px; 
+          height: 2px; 
           background: currentColor; 
-          transition: width 0.2s ease; 
+          transition: width 0.25s ease; 
         }
         .kap-text-link:hover::after { width: 100%; }
 
@@ -234,7 +268,7 @@ export default function Home() {
               <span>Admissions 2026 Open</span>
             </div>
 
-            {/* Headline — eye-catching treatment on "pharmacy" */}
+            {/* Headline */}
             <h1 style={styles.heroHeading}>
               Build your future in{" "}
               <span style={styles.heroAccentWrap}>
@@ -323,7 +357,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Reasons to study */}
+      {/* Reasons to study (Why KAP) */}
       <section style={styles.sectionShaded}>
         <div style={styles.sectionInner}>
           <div style={styles.sectionHeaderLeft}>
@@ -346,22 +380,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Courses */}
+      {/* Courses (Programs) */}
       <section style={styles.section}>
         <div style={styles.sectionHeaderLeft}>
           <div style={styles.eyebrow}>Programs</div>
-          <h2 style={styles.sectionHeadingLeft}>Our courses</h2>
+          <h2 style={styles.sectionHeadingLeft}>Our Courses & Degrees</h2>
           <p style={styles.sectionSubLeft}>
-            Explore the variety of courses offered by KAP, catering to aspiring
+            Explore the variety of accredited courses offered by KAP, catering to aspiring
             pharmacists and healthcare professionals.
           </p>
         </div>
         <div style={styles.grid3}>
           {courses.map((c) => (
-            <div className="kap-lift" style={styles.courseCard} key={c.title}>
-              <div style={{ ...styles.courseImage, backgroundImage: `url("${c.image}")` }} />
-              <h3 style={styles.courseTitle}>{c.title}</h3>
-              <Link to={c.link} className="kap-text-link" style={styles.courseLink}>Read More →</Link>
+            <div className="kap-lift kap-course-card" style={styles.courseCard} key={c.title}>
+              <div style={styles.courseImageWrapper}>
+                <div className="kap-course-img" style={{ ...styles.courseImage, backgroundImage: `url("${c.image}")` }} />
+                <span style={styles.courseBadge}>{c.duration}</span>
+              </div>
+              <div style={styles.courseCardBody}>
+                <h3 style={styles.courseTitle}>{c.title}</h3>
+                <p style={styles.courseDesc}>Comprehensive hands-on training with clinical & industry integration.</p>
+                <Link to={c.link} className="kap-text-link" style={styles.courseLink}>
+                  Explore Program <span>→</span>
+                </Link>
+              </div>
             </div>
           ))}
         </div>
@@ -371,17 +413,23 @@ export default function Home() {
       <section style={styles.sectionShaded}>
         <div style={styles.sectionInner}>
           <div style={styles.sectionHeaderLeft}>
-            <div style={styles.eyebrow}>Blog</div>
+            <div style={styles.eyebrow}>Latest News & Insights</div>
             <h2 style={styles.sectionHeadingLeft}>From our blog</h2>
+            <p style={styles.sectionSubLeft}>Stay updated with news, pharmaceutical research, and campus highlights.</p>
           </div>
           <div style={styles.blogScrollOuter}>
             <div className="blog-track" style={styles.blogTrack}>
               {[...blogs, ...blogs].map((b, i) => (
-                <div style={styles.blogCard} key={`${b.slug}-${i}`}>
-                  <div style={{ ...styles.blogImage, backgroundImage: `url("${b.image}")` }} />
+                <div className="kap-blog-card kap-lift" style={styles.blogCard} key={`${b.slug}-${i}`}>
+                  <div style={styles.blogImageWrapper}>
+                    <div className="kap-blog-img" style={{ ...styles.blogImage, backgroundImage: `url("${b.image}")` }} />
+                    <span style={styles.blogCategoryTag}>{b.tag}</span>
+                  </div>
                   <div style={styles.blogCardBody}>
                     <p style={styles.blogText}>{b.description}</p>
-                    <Link to={`/blogs/${b.slug}`} style={styles.blogReadMore}>Read More →</Link>
+                    <Link to={`/blogs/${b.slug}`} style={styles.blogReadMore}>
+                      Read Article <span style={{ marginLeft: "4px" }}>→</span>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -556,114 +604,190 @@ const getStyles = (isMobile) => ({
     zIndex: 2,
   },
 
+  /* About Section */
   aboutSection: {
     display: "flex",
     flexDirection: isMobile ? "column" : "row",
     alignItems: "center",
-    gap: isMobile ? "24px" : "48px",
-    padding: isMobile ? "36px 20px" : "64px 48px",
+    gap: isMobile ? "28px" : "56px",
+    padding: isMobile ? "40px 20px" : "72px 56px",
+    background: "#ffffff",
   },
   aboutText: { flex: 1 },
   eyebrow: {
     fontSize: "11px",
-    letterSpacing: "0.12em",
+    letterSpacing: "0.14em",
     color: "#C41E1E",
     textTransform: "uppercase",
-    fontWeight: 700,
+    fontWeight: 800,
     marginBottom: "10px",
+    display: "inline-block",
   },
   aboutHeading: {
-    fontSize: isMobile ? "21px" : "26px",
+    fontSize: isMobile ? "24px" : "32px",
     color: "#1a1615",
-    marginBottom: "16px",
-    lineHeight: 1.3,
+    marginBottom: "18px",
+    lineHeight: 1.25,
+    fontWeight: 800,
+    letterSpacing: "-0.01em",
   },
   paragraphLeft: {
-    fontSize: isMobile ? "13.5px" : "14.5px",
-    lineHeight: 1.8,
+    fontSize: isMobile ? "14px" : "15px",
+    lineHeight: 1.75,
     color: "#4a433e",
-    marginBottom: "16px",
+    marginBottom: "18px",
   },
-  textLink: { color: "#C41E1E", fontSize: "13.5px", fontWeight: 700, textDecoration: "none" },
+  textLink: { color: "#C41E1E", fontSize: "14px", fontWeight: 700, textDecoration: "none" },
   aboutImageWrap: { flex: 1, width: "100%" },
   aboutImage: {
     width: "100%",
-    height: isMobile ? "220px" : "340px",
+    height: isMobile ? "240px" : "360px",
     borderRadius: "20px",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundColor: "#f1e5e5",
-    boxShadow: "0 14px 34px rgba(196,30,30,0.15)",
+    boxShadow: "0 16px 36px rgba(196,30,30,0.12)",
+    border: "1px solid #FEE2E2",
   },
 
-  section: { padding: isMobile ? "32px 20px" : "56px 48px" },
-  sectionShaded: { background: "#FFF6EF" },
-  sectionInner: { padding: isMobile ? "32px 20px" : "56px 48px" },
-  sectionHeaderLeft: { marginBottom: "32px", maxWidth: "560px" },
-  sectionHeadingLeft: { fontSize: isMobile ? "20px" : "26px", color: "#1a1615", marginBottom: "10px" },
-  sectionSubLeft: { color: "#6b625a", fontSize: isMobile ? "13px" : "14px", lineHeight: 1.6 },
+  /* Section Wrappers */
+  section: { padding: isMobile ? "40px 20px" : "72px 56px", background: "#ffffff" },
+  sectionShaded: { background: "#FEF2F2" }, // Soft background matching navbar tone
+  sectionInner: { maxWidth: "1200px", margin: "0 auto" },
+  sectionHeaderLeft: { marginBottom: "36px", maxWidth: "600px" },
+  sectionHeadingLeft: { fontSize: isMobile ? "24px" : "32px", color: "#1a1615", marginBottom: "10px", fontWeight: 800, letterSpacing: "-0.01em" },
+  sectionSubLeft: { color: "#6b625a", fontSize: isMobile ? "14px" : "15px", lineHeight: 1.6 },
 
   grid3: {
     display: "grid",
     gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
-    gap: isMobile ? "14px" : "22px",
+    gap: isMobile ? "18px" : "28px",
   },
+
+  /* Why KAP Section */
   reasonCard: {
-    background: "#fff",
-    borderRadius: "16px",
-    padding: "30px 22px",
+    background: "#ffffff",
+    borderRadius: "20px",
+    padding: "32px 24px",
     textAlign: "center",
-    boxShadow: "0 4px 20px rgba(196,30,30,0.08)",
+    border: "1px solid #FEE2E2",
+    boxShadow: "0 6px 20px rgba(196,30,30,0.05)",
     cursor: "default",
   },
   iconCircle: {
-    width: "50px",
-    height: "50px",
+    width: "56px",
+    height: "56px",
     borderRadius: "50%",
-    background: "linear-gradient(135deg, #C41E1E, #8E1616)",
+    background: "linear-gradient(135deg, #C41E1E 0%, #8E1616 100%)",
+    color: "#ffffff",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    margin: "0 auto 16px",
-    fontSize: "22px",
+    margin: "0 auto 20px",
+    fontSize: "24px",
+    boxShadow: "0 6px 16px rgba(196,30,30,0.25)",
   },
-  cardTitle: { fontSize: "15px", color: "#1a1615", marginBottom: "8px", fontWeight: 700 },
-  cardText: { fontSize: "13px", color: "#6b625a", lineHeight: 1.65 },
+  cardTitle: { fontSize: "17px", color: "#1a1615", marginBottom: "10px", fontWeight: 700 },
+  cardText: { fontSize: "14px", color: "#6b625a", lineHeight: 1.65 },
 
+  /* Course / Program Cards */
   courseCard: {
-    background: "#fff",
-    borderRadius: "16px",
+    background: "#ffffff",
+    borderRadius: "20px",
     overflow: "hidden",
-    textAlign: "center",
-    paddingBottom: "18px",
-    boxShadow: "0 4px 20px rgba(196,30,30,0.08)",
+    textAlign: "left",
+    border: "1px solid #FEE2E2",
+    boxShadow: "0 6px 20px rgba(196,30,30,0.06)",
+    display: "flex",
+    flexDirection: "column",
   },
-  courseImage: { width: "100%", height: isMobile ? "160px" : "140px", backgroundSize: "cover", backgroundPosition: "center", backgroundColor: "#f1e5e5" },
-  courseTitle: { fontSize: "14.5px", color: "#1a1615", margin: "14px 12px 8px" },
-  courseLink: { color: "#C41E1E", fontSize: "13px", textDecoration: "none", fontWeight: 700 },
+  courseImageWrapper: {
+    position: "relative",
+    width: "100%",
+    height: isMobile ? "180px" : "200px",
+    overflow: "hidden",
+  },
+  courseImage: {
+    width: "100%",
+    height: "100%",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundColor: "#f1e5e5",
+  },
+  courseBadge: {
+    position: "absolute",
+    top: "14px",
+    right: "14px",
+    background: "rgba(196, 30, 30, 0.9)",
+    color: "#ffffff",
+    fontSize: "11px",
+    fontWeight: 700,
+    padding: "5px 12px",
+    borderRadius: "20px",
+    backdropFilter: "blur(4px)",
+    letterSpacing: "0.02em",
+  },
+  courseCardBody: {
+    padding: "20px 22px 24px",
+    display: "flex",
+    flexDirection: "column",
+    flex: 1,
+  },
+  courseTitle: { fontSize: "18px", color: "#1a1615", marginBottom: "8px", fontWeight: 700 },
+  courseDesc: { fontSize: "13.5px", color: "#6b625a", lineHeight: 1.55, marginBottom: "18px", flex: 1 },
+  courseLink: { color: "#C41E1E", fontSize: "14px", textDecoration: "none", fontWeight: 700 },
 
-  blogScrollOuter: { overflow: "hidden", width: "100%" },
-  blogTrack: { display: "flex", gap: "20px", width: "max-content" },
+  /* Blog Section */
+  blogScrollOuter: { overflow: "hidden", width: "100%", padding: "10px 0 20px" },
+  blogTrack: { display: "flex", gap: "24px", width: "max-content" },
   blogCard: {
     flex: "0 0 auto",
-    width: isMobile ? "220px" : "280px",
-    background: "#fff",
-    borderRadius: "16px",
+    width: isMobile ? "260px" : "310px",
+    background: "#ffffff",
+    borderRadius: "20px",
     overflow: "hidden",
-    boxShadow: "0 4px 20px rgba(196,30,30,0.1)",
+    border: "1px solid #FEE2E2",
+    boxShadow: "0 6px 20px rgba(196,30,30,0.08)",
   },
-  blogImage: { width: "100%", height: isMobile ? "140px" : "170px", backgroundSize: "cover", backgroundPosition: "center", backgroundColor: "#f1e5e5" },
-  blogCardBody: { padding: "16px" },
-  blogText: { fontSize: "13.5px", color: "#1a1615", margin: "0 0 12px", lineHeight: 1.55, minHeight: "40px" },
-  blogReadMore: {
-    display: "inline-block",
-    fontSize: "12.5px",
+  blogImageWrapper: {
+    position: "relative",
+    width: "100%",
+    height: isMobile ? "150px" : "180px",
+    overflow: "hidden",
+  },
+  blogImage: {
+    width: "100%",
+    height: "100%",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundColor: "#f1e5e5",
+  },
+  blogCategoryTag: {
+    position: "absolute",
+    bottom: "12px",
+    left: "12px",
+    background: "#ffffff",
+    color: "#C41E1E",
+    fontSize: "11px",
     fontWeight: 700,
-    color: "#fff",
-    background: "#C41E1E",
-    padding: "7px 14px",
+    padding: "4px 10px",
+    borderRadius: "12px",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+  },
+  blogCardBody: { padding: "20px" },
+  blogText: { fontSize: "14px", color: "#1a1615", margin: "0 0 16px", lineHeight: 1.55, fontWeight: 600, minHeight: "44px" },
+  blogReadMore: {
+    display: "inline-flex",
+    alignItems: "center",
+    fontSize: "13px",
+    fontWeight: 700,
+    color: "#ffffff",
+    background: "linear-gradient(135deg, #C41E1E 0%, #8E1616 100%)",
+    padding: "8px 18px",
     borderRadius: "20px",
     textDecoration: "none",
+    boxShadow: "0 4px 12px rgba(196,30,30,0.2)",
+    transition: "transform 0.2s ease, box-shadow 0.2s ease",
   },
 
   study: {
@@ -676,7 +800,7 @@ const getStyles = (isMobile) => ({
   studyDim: {
     position: "absolute",
     inset: 0,
-    background: "linear-gradient(180deg, rgba(142,22,22,0.55) 0%, rgba(80,19,19,0.85) 100%)",
+    background: "linear-gradient(180deg, rgba(142,22,22,0.65) 0%, rgba(80,19,19,0.88) 100%)",
   },
   studyOverlay: {
     position: "relative",
@@ -688,6 +812,6 @@ const getStyles = (isMobile) => ({
     margin: "0 auto",
   },
   studyHeading: { fontSize: isMobile ? "18px" : "22px", marginBottom: "4px" },
-  studySubheading: { fontSize: isMobile ? "20px" : "26px", letterSpacing: "0.05em", color: "#FFD166", marginBottom: "16px" },
-  studyText: { fontSize: isMobile ? "13px" : "14px", lineHeight: 1.7, color: "#FCEBEB" },
+  studySubheading: { fontSize: isMobile ? "22px" : "28px", letterSpacing: "0.05em", color: "#FFD166", marginBottom: "16px", fontWeight: 800 },
+  studyText: { fontSize: isMobile ? "13.5px" : "15px", lineHeight: 1.7, color: "#FCEBEB" },
 });
