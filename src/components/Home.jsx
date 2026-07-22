@@ -15,20 +15,20 @@ function useResponsive() {
 }
 
 const reasons = [
-  { 
-    title: "World Class Faculty", 
-    desc: "Outstanding and highly qualified faculty members with an excellent curriculum framed with academics and industry experts.", 
-    icon: "🎓" 
+  {
+    title: "World Class Faculty",
+    desc: "Outstanding and highly qualified faculty members with an excellent curriculum framed with academics and industry experts.",
+    icon: "🎓"
   },
-  { 
-    title: "Pioneering Research", 
-    desc: "Hands-on opportunities to work under expert guidance, using the latest facilities and tools to discover and publish.", 
-    icon: "🔬" 
+  {
+    title: "Pioneering Research",
+    desc: "Hands-on opportunities to work under expert guidance, using the latest facilities and tools to discover and publish.",
+    icon: "🔬"
   },
-  { 
-    title: "Global Exposure", 
-    desc: "Collaborations with top national and international universities through transformative exchange programmes.", 
-    icon: "🌍" 
+  {
+    title: "Global Exposure",
+    desc: "Collaborations with top national and international universities through transformative exchange programmes.",
+    icon: "🌍"
   },
 ];
 
@@ -87,6 +87,54 @@ function StudySection({ styles }) {
           it one of the most contemporary cities for young minds who hope to do
           things differently. Come discover what makes this city so special.
         </p>
+      </div>
+    </section>
+  );
+}
+
+const YOUTUBE_VIDEO_ID = "VykeKtk4854";
+
+function YoutubeAutoplaySection({ styles }) {
+  const wrapperRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.5 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const embedUrl = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&mute=1&rel=0&playsinline=1`;
+
+  return (
+    <section style={styles.videoSection}>
+      <style>{`
+        .kap-video-3d:hover {
+          transform: perspective(1200px) rotateX(0deg) translateY(-6px);
+          box-shadow: 0 40px 70px rgba(0,0,0,0.5), 0 20px 30px rgba(0,0,0,0.35);
+        }
+      `}</style>
+      <div style={styles.videoSectionInner}>
+        <div style={styles.eyebrow}>Campus Life</div>
+        <h2 style={styles.sectionHeadingLeft}>Watch Our Story</h2>
+        <div ref={wrapperRef} className="kap-video-3d" style={styles.videoWrapper}>
+          {isVisible && (
+            <iframe
+              src={embedUrl}
+              title="Kerala Academy of Pharmacy"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: 0 }}
+            />
+          )}
+        </div>
       </div>
     </section>
   );
@@ -357,6 +405,8 @@ export default function Home() {
         </div>
       </section>
 
+      <YoutubeAutoplaySection styles={styles} />
+
       {/* Reasons to study (Why KAP) */}
       <section style={styles.sectionShaded}>
         <div style={styles.sectionInner}>
@@ -602,6 +652,31 @@ const getStyles = (isMobile) => ({
     height: isMobile ? "30px" : "50px",
     display: "block",
     zIndex: 2,
+  },
+
+  videoSection: {
+    padding: isMobile ? "40px 20px" : "64px 48px",
+    background: "radial-gradient(ellipse at center, #FBD5D5 0%, #FFF6EF 65%)",
+  },
+  videoSectionInner: {
+    maxWidth: "900px",
+    margin: "0 auto",
+    textAlign: "center",
+  },
+  videoWrapper: {
+    position: "relative",
+    width: "100%",
+    paddingTop: "56.25%",
+    borderRadius: "18px",
+    overflow: "hidden",
+    marginTop: "24px",
+    background: "#000",
+    border: "6px solid rgba(255,255,255,0.9)",
+    transform: "perspective(1200px) rotateX(3deg)",
+    transformStyle: "preserve-3d",
+    boxShadow:
+      "0 30px 60px rgba(0,0,0,0.45), 0 15px 25px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.1)",
+    transition: "transform 0.4s ease, box-shadow 0.4s ease",
   },
 
   /* About Section */
