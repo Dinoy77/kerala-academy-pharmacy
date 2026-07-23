@@ -23,6 +23,7 @@ import InformationCenter from "./components/InformationCenter";
 import Placements from "./components/Placements";
 import Campus from "./components/Campus";
 import Contact from "./components/Contact";
+import CareerOpenings from "./components/CareerOpenings";
 import "./App.css";
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
         <Route path="/campus" element={<Campus />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/career" element={<Career />} />
+        <Route path="/career-openings" element={<CareerOpenings />} />
         <Route path="/pharmacy" element={<Pharmacy />} />
         <Route path="/faq" element={<Placeholder title="FAQ" />} />
         <Route
