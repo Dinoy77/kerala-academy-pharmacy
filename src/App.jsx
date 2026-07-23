@@ -21,6 +21,8 @@ import BlogList from "./components/BlogList";
 import BlogDetail from "./components/BlogDetail";
 import InformationCenter from "./components/InformationCenter";
 import Placements from "./components/Placements";
+import Campus from "./components/Campus";
+import Contact from "./components/Contact";
 import "./App.css";
 
 function App() {
@@ -48,8 +50,8 @@ function App() {
         <Route path="/blogs/:slug" element={<BlogDetail />} />
         <Route path="/information-center" element={<InformationCenter />} />
         <Route path="/placements" element={<Placements />} />
-        <Route path="/campus" element={<Placeholder title="Campus" />} />
-        <Route path="/contact" element={<Placeholder title="Contact" />} />
+        <Route path="/campus" element={<Campus />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/career" element={<Career />} />
         <Route path="/pharmacy" element={<Pharmacy />} />
         <Route path="/faq" element={<Placeholder title="FAQ" />} />
