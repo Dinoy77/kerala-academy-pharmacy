@@ -284,7 +284,7 @@ export default function Home() {
           playsInline
           poster="/assets/images/college.jpeg"
         />
-        <div style={styles.heroVideoOverlay} />
+
 
         <button
           onClick={toggleMute}
@@ -305,6 +305,8 @@ export default function Home() {
             </svg>
           )}
         </button>
+
+        <div style={styles.heroTextScrim} />
 
         <div style={styles.heroInner}>
           <div className="hero-fade-1" style={styles.heroText}>
@@ -510,12 +512,7 @@ const getStyles = (isMobile) => ({
     height: "100%",
     objectFit: "cover",
   },
-  heroVideoOverlay: {
-    position: "absolute",
-    inset: 0,
-    background:
-      "linear-gradient(115deg, rgba(162, 18, 18, 0.5) 0%, rgba(110, 15, 15, 0.4) 45%, rgba(40, 8, 8, 0.3) 100%)",
-  },
+
   muteBtn: {
     position: "absolute",
     bottom: "24px",
@@ -535,6 +532,15 @@ const getStyles = (isMobile) => ({
     alignItems: "center",
     justifyContent: "center",
   },
+
+  heroTextScrim: {
+    position: "absolute",
+    inset: 0,
+    background:
+      "linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0) 70%)",
+    zIndex: 1,
+  },
+
   heroInner: {
     position: "relative",
     zIndex: 2,
