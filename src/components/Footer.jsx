@@ -18,7 +18,7 @@ const utilityLinks = [
   { label: "Contact", to: "/contact" },
   { label: "Career", to: "/career" },
   { label: "FAQ", to: "/faq" },
-  { label: "Travel Information", to: "/travel-information" },
+  { label: "Travel Information", to: "/documents/travel-information.pdf", external: true },
 ];
 
 const socialLinks = [
@@ -61,16 +61,29 @@ export default function Footer() {
 
       <div style={styles.utilityStrip}>
         <div style={styles.utilityLinks}>
-          {utilityLinks.map((link) => (
-            <Link
-              key={link.label}
-              to={link.to}
-              style={styles.utilityLink}
-              className="footer-utility-link"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {utilityLinks.map((link) =>
+            link.external ? (
+              <a
+                key={link.label}
+                href={link.to}
+                target="_blank"
+                rel="noreferrer"
+                style={styles.utilityLink}
+                className="footer-utility-link"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.label}
+                to={link.to}
+                style={styles.utilityLink}
+                className="footer-utility-link"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </div>
         <div style={styles.utilityHelpline}>Helpline: +91-8951220590</div>
       </div>

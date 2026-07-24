@@ -24,6 +24,7 @@ import Placements from "./components/Placements";
 import Campus from "./components/Campus";
 import Contact from "./components/Contact";
 import CareerOpenings from "./components/CareerOpenings";
+import Faq from "./components/Faq";
 import "./App.css";
 
 function App() {
@@ -56,11 +57,7 @@ function App() {
         <Route path="/career" element={<Career />} />
         <Route path="/career-openings" element={<CareerOpenings />} />
         <Route path="/pharmacy" element={<Pharmacy />} />
-        <Route path="/faq" element={<Placeholder title="FAQ" />} />
-        <Route
-          path="/travel-information"
-          element={<Placeholder title="Travel Information" />}
-        />
+        <Route path="/faq" element={<Faq />} />
         <Route path="/apply" element={<Placeholder title="Apply Now" />} />
 
         {/* New routes for footer links */}

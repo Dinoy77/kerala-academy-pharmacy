@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import CongratsPopup from "./CongratsPopup";
+import EnquiryBox from "./EnquiryBox";
 
 function useResponsive() {
   const [width, setWidth] = useState(
@@ -156,6 +157,7 @@ export default function Home() {
   return (
     <div style={styles.page}>
       <CongratsPopup />
+      <EnquiryBox />
 
       <style>{`
         @keyframes fadeUp { 
