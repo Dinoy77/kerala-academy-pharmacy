@@ -26,6 +26,7 @@ import Contact from "./components/Contact";
 import CareerOpenings from "./components/CareerOpenings";
 import Faq from "./components/Faq";
 import Apply from "./components/Apply";
+import FloatingButtons from "./components/FloatingButtons";
 import "./App.css";
 
 function App() {
@@ -77,6 +78,7 @@ function App() {
         <Route path="/departments" element={<Placeholder title="Departments" />} />
       </Routes>
       <Footer />
+      <FloatingButtons />
     </div>
   );
 }
