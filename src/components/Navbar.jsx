@@ -80,6 +80,8 @@ export default function Navbar() {
           background: #ffffff;
           border-bottom: 2px solid #FEE2E2;
           position: relative;
+          max-width: 1600px;
+          margin: 0 auto;
         }
 
         /* Brand / Logo */
@@ -88,6 +90,7 @@ export default function Navbar() {
           align-items: center;
           gap: 12px;
           text-decoration: none;
+          flex-shrink: 0;
         }
 
         .navbar-logo-img {
@@ -123,6 +126,7 @@ export default function Navbar() {
           font-weight: 800;
           color: #1A1615;
           letter-spacing: -0.01em;
+          white-space: nowrap;
         }
 
         .navbar-brand-sub {
@@ -131,15 +135,17 @@ export default function Navbar() {
           text-transform: uppercase;
           color: #C41E1E;
           font-weight: 700;
+          white-space: nowrap;
         }
 
-        /* Nav Links */
+        /* Desktop Nav Links (Active only 1440px and above) */
         .navbar-links {
           display: flex;
           align-items: center;
-          gap: 16px;
+          gap: 12px;
           flex: 1 1 auto;
           justify-content: center;
+          padding: 0 16px;
         }
 
         .navbar-link {
@@ -274,7 +280,11 @@ export default function Navbar() {
           background: linear-gradient(135deg, #D62222 0%, #B01B1B 100%);
         }
 
-        /* Mobile Hamburger Toggle */
+        .navbar-cta-mobile {
+          display: none;
+        }
+
+        /* Hamburger Toggle */
         .navbar-toggle {
           display: none;
           flex-direction: column;
@@ -318,18 +328,10 @@ export default function Navbar() {
           to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsive Styles */
-        @media (max-width: 1024px) {
-          .navbar-links {
-            gap: 8px;
-          }
-          .navbar-link {
-            font-size: 12.5px;
-            padding: 6px 8px;
-          }
-        }
-
-        @media (max-width: 900px) {
+        /* ==========================================
+           BURGER MENU UNDER 1440px BREAKPOINT
+           ========================================== */
+        @media (max-width: 1439px) {
           .navbar {
             padding: 12px 20px;
           }
@@ -338,8 +340,15 @@ export default function Navbar() {
             display: flex;
           }
 
-          .navbar-cta {
-            display: none; /* Hidden on tiny header, available inside drawer if preferred */
+          .navbar-cta-desktop {
+            display: none;
+          }
+
+          .navbar-cta-mobile {
+            display: block;
+            text-align: center;
+            margin-top: 12px;
+            width: 100%;
           }
 
           .navbar-links {
@@ -351,15 +360,23 @@ export default function Navbar() {
             flex-direction: column;
             align-items: stretch;
             padding: 16px 20px 24px;
-            gap: 8px;
+            gap: 6px;
             display: none;
             border-bottom: 2px solid #FEE2E2;
-            box-shadow: 0 16px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 16px 30px rgba(0,0,0,0.1);
             z-index: 100;
+            max-height: calc(100vh - 70px);
+            overflow-y: auto;
           }
 
           .navbar-links.open {
             display: flex;
+          }
+
+          .navbar-item-dropdown {
+            flex-direction: column;
+            align-items: stretch;
+            width: 100%;
           }
 
           .navbar-link {
@@ -377,8 +394,9 @@ export default function Navbar() {
             display: none;
             margin: 4px 0 8px 12px;
             padding: 6px;
-            border-left: 2px solid #C41E1E;
+            border-left: 3px solid #C41E1E;
             border-radius: 4px;
+            width: calc(100% - 12px);
           }
 
           .navbar-dropdown.mobile-open {
@@ -401,10 +419,33 @@ export default function Navbar() {
             background: transparent;
             padding-left: 12px;
             margin-left: 0;
+            width: 100%;
           }
 
           .navbar-caret-right {
             transform: rotate(90deg);
+          }
+        }
+
+        /* Compact Mobile Screens (<480px) */
+        @media (max-width: 480px) {
+          .navbar {
+            padding: 10px 16px;
+          }
+          .navbar-brand-title {
+            font-size: 14px;
+          }
+          .navbar-brand-sub {
+            font-size: 9.5px;
+          }
+          .navbar-logo-img {
+            width: 36px;
+            height: 36px;
+          }
+          .navbar-logo {
+            width: 34px;
+            height: 34px;
+            font-size: 12px;
           }
         }
       `}</style>
@@ -524,10 +565,19 @@ export default function Navbar() {
               </Link>
             )
           )}
+
+          {/* CTA inside Mobile Drawer */}
+          <Link
+            to="/apply"
+            className="navbar-cta navbar-cta-mobile"
+            onClick={() => setOpen(false)}
+          >
+            Apply now
+          </Link>
         </div>
 
-        {/* Call to Action Button */}
-        <Link to="/apply" className="navbar-cta">
+        {/* Desktop Call to Action Button */}
+        <Link to="/apply" className="navbar-cta navbar-cta-desktop">
           Apply now
         </Link>
       </nav>
