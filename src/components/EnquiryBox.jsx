@@ -16,7 +16,9 @@ export default function EnquiryBox() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -44,9 +46,25 @@ export default function EnquiryBox() {
       return;
     }
 
-    // TODO: wire this up to your real backend/email handler
-    setSuccess(true);
-    setForm({ name: "", email: "", phone: "", message: "" });
+    setSending(true);
+    try {
+      const res = await fetch("https://kap.ac.in/send-enquiry.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone, message }),
+      });
+      const result = await res.json();
+      if (result.success) {
+        setSuccess(true);
+        setForm({ name: "", email: "", phone: "", message: "" });
+      } else {
+        setError("Something went wrong sending your enquiry. Please try again.");
+      }
+    } catch (err) {
+      setError("Could not reach the server. Please check your connection and try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   if (!visible) return null;
@@ -100,7 +118,9 @@ export default function EnquiryBox() {
           <p style={styles.success}>Message sent successfully!</p>
         )}
 
-        <button type="submit" style={styles.submitBtn}>Submit</button>
+        <button type="submit" style={styles.submitBtn} disabled={sending}>
+          {sending ? "Sending..." : "Submit"}
+        </button>
       </form>
     </div>
   );
