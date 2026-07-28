@@ -56,105 +56,53 @@ export default function Navbar() {
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [mobileSubOpen, setMobileSubOpen] = useState(null);
+  const [mobileNestedOpen, setMobileNestedOpen] = useState(null);
+
+  // Helper to scroll to top smoothly
+  const handleHomeClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setOpen(false);
+  };
 
   return (
     <header className="site-header">
       <style>{`
-        /* ==========================================
-           RED & WHITE NAVBAR STYLES
-           ========================================== */
         .site-header {
           font-family: system-ui, -apple-system, sans-serif;
           position: sticky;
           top: 0;
           z-index: 1000;
           background: #ffffff;
-          box-shadow: 0 4px 20px rgba(196, 30, 30, 0.06);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
         }
 
-        .navbar {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 12px 32px;
-          background: #ffffff;
-          border-bottom: 2px solid #FEE2E2;
-          position: relative;
+        /* TIER 1: TOP RED STRIP */
+        .top-tier {
+          background: linear-gradient(90deg, #8E1616 0%, #C41E1E 50%, #8E1616 100%);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .top-tier-container {
           max-width: 1600px;
           margin: 0 auto;
-        }
-
-        /* Brand / Logo */
-        .navbar-brand {
           display: flex;
-          align-items: center;
-          gap: 12px;
-          text-decoration: none;
-          flex-shrink: 0;
-        }
-
-        .navbar-logo-img {
-          width: 44px;
-          height: 44px;
-          object-fit: contain;
-          flex-shrink: 0;
-        }
-
-        .navbar-logo {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #C41E1E 0%, #8E1616 100%);
-          color: #ffffff;
           align-items: center;
           justify-content: center;
-          font-size: 14px;
-          font-weight: 700;
-          letter-spacing: 0.02em;
-          flex-shrink: 0;
-          box-shadow: 0 4px 10px rgba(196, 30, 30, 0.2);
+          padding: 0 24px;
         }
 
-        .navbar-brand-text {
-          display: flex;
-          flex-direction: column;
-          line-height: 1.15;
-        }
-
-        .navbar-brand-title {
-          font-size: 16px;
-          font-weight: 800;
-          color: #1A1615;
-          letter-spacing: -0.01em;
-          white-space: nowrap;
-        }
-
-        .navbar-brand-sub {
-          font-size: 11px;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          color: #C41E1E;
-          font-weight: 700;
-          white-space: nowrap;
-        }
-
-        /* Desktop Nav Links (Active only 1440px and above) */
-        .navbar-links {
+        .navbar-links-desktop {
           display: flex;
           align-items: center;
-          gap: 12px;
-          flex: 1 1 auto;
-          justify-content: center;
-          padding: 0 16px;
+          gap: 2px;
         }
 
-        .navbar-link {
-          font-size: 13.5px;
+        .top-link {
+          font-size: 13px;
           font-weight: 600;
-          color: #4A433E;
+          color: rgba(255, 255, 255, 0.95);
           text-decoration: none;
-          padding: 8px 10px;
-          border-radius: 8px;
+          padding: 9px 12px;
           white-space: nowrap;
           transition: all 0.2s ease;
           display: flex;
@@ -162,33 +110,20 @@ export default function Navbar() {
           gap: 4px;
         }
 
-        .navbar-link:hover {
-          color: #C41E1E;
-          background: #FEF2F2;
-        }
-
-        .navbar-link.active {
-          color: #C41E1E;
-          background: #FEF2F2;
-          font-weight: 700;
+        .top-link:hover,
+        .top-link.active {
+          color: #ffffff;
+          background: rgba(255, 255, 255, 0.2);
         }
 
         .navbar-caret {
-          font-size: 9px;
-          color: #9CA3AF;
-          transition: transform 0.2s ease;
+          font-size: 8px;
+          opacity: 0.8;
         }
 
-        .navbar-item-dropdown:hover .navbar-caret {
-          color: #C41E1E;
-          transform: translateY(1px);
-        }
-
-        /* Dropdowns */
+        /* Desktop Dropdowns */
         .navbar-item-dropdown {
           position: relative;
-          display: flex;
-          align-items: center;
         }
 
         .navbar-dropdown {
@@ -198,15 +133,15 @@ export default function Navbar() {
           left: 0;
           background: #ffffff;
           border: 1px solid #FEE2E2;
-          border-radius: 12px;
-          box-shadow: 0 12px 30px rgba(196, 30, 30, 0.12);
-          min-width: 230px;
-          padding: 8px;
-          z-index: 20;
-          animation: fadeUp 0.2s ease;
+          border-radius: 8px;
+          box-shadow: 0 10px 25px rgba(196, 30, 30, 0.12);
+          min-width: 220px;
+          padding: 6px;
+          z-index: 100;
+          animation: fadeUp 0.18s ease;
         }
 
-        .navbar-item-dropdown:hover .navbar-dropdown {
+        .navbar-item-dropdown:hover > .navbar-dropdown {
           display: block;
         }
 
@@ -214,23 +149,22 @@ export default function Navbar() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 10px 14px;
+          padding: 8px 12px;
           font-size: 13px;
           font-weight: 500;
           color: #2D0B0E;
           text-decoration: none;
-          border-radius: 8px;
+          border-radius: 6px;
           white-space: nowrap;
           transition: all 0.15s ease;
+          cursor: pointer;
         }
 
         .navbar-dropdown-link:hover {
           background: #FEF2F2;
           color: #C41E1E;
-          padding-left: 18px;
         }
 
-        /* Sub-dropdowns */
         .navbar-subitem-dropdown {
           position: relative;
         }
@@ -242,49 +176,109 @@ export default function Navbar() {
           left: 100%;
           background: #ffffff;
           border: 1px solid #FEE2E2;
-          border-radius: 12px;
-          box-shadow: 0 12px 30px rgba(196, 30, 30, 0.12);
-          min-width: 210px;
-          padding: 8px;
-          margin-left: 6px;
+          border-radius: 8px;
+          box-shadow: 0 10px 25px rgba(196, 30, 30, 0.12);
+          min-width: 200px;
+          padding: 6px;
+          margin-left: 4px;
         }
 
-        .navbar-subitem-dropdown:hover .navbar-subdropdown {
+        .navbar-subitem-dropdown:hover > .navbar-subdropdown {
           display: block;
         }
 
         .navbar-caret-right {
-          font-size: 10px;
+          font-size: 9px;
           color: #9CA3AF;
         }
 
-        /* Primary Call To Action Button */
+        /* TIER 2: MAIN BRAND & APPLY ROW */
+        .main-tier {
+          background: #ffffff;
+          padding: 12px 32px;
+          border-bottom: 1px solid #FEF2F2;
+        }
+
+        .main-tier-container {
+          max-width: 1600px;
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .navbar-brand {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          text-decoration: none;
+          flex-shrink: 0;
+          cursor: pointer;
+        }
+
+        .navbar-logo-img {
+          width: 50px;
+          height: 50px;
+          object-fit: contain;
+        }
+
+        .navbar-logo {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #C41E1E 0%, #8E1616 100%);
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+          font-weight: 800;
+        }
+
+        .navbar-brand-text {
+          display: flex;
+          flex-direction: column;
+          line-height: 1.1;
+        }
+
+        .navbar-brand-title {
+          font-size: 20px;
+          font-weight: 800;
+          color: #1A1615;
+          letter-spacing: -0.01em;
+        }
+
+        .navbar-brand-sub {
+          font-size: 11px;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: #C41E1E;
+          font-weight: 700;
+        }
+
         .navbar-cta {
           background: linear-gradient(135deg, #C41E1E 0%, #9B1818 100%);
           color: #ffffff;
           border: none;
-          border-radius: 24px;
-          padding: 10px 22px;
+          border-radius: 30px;
+          padding: 10px 28px;
           font-size: 13.5px;
-          font-weight: 700;
+          font-weight: 800;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
           text-decoration: none;
           white-space: nowrap;
-          flex-shrink: 0;
-          box-shadow: 0 4px 14px rgba(196, 30, 30, 0.25);
+          box-shadow: 0 4px 15px rgba(196, 30, 30, 0.3);
           transition: all 0.25s ease;
         }
 
         .navbar-cta:hover {
           transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(196, 30, 30, 0.4);
+          box-shadow: 0 6px 20px rgba(196, 30, 30, 0.45);
           background: linear-gradient(135deg, #D62222 0%, #B01B1B 100%);
         }
 
-        .navbar-cta-mobile {
-          display: none;
-        }
-
-        /* Hamburger Toggle */
+        /* MOBILE MENU TOGGLE */
         .navbar-toggle {
           display: none;
           flex-direction: column;
@@ -294,293 +288,297 @@ export default function Navbar() {
           border: none;
           cursor: pointer;
           padding: 8px;
-          border-radius: 8px;
-          transition: background 0.2s ease;
-        }
-
-        .navbar-toggle:hover {
-          background: #FEF2F2;
         }
 
         .navbar-toggle span {
-          width: 22px;
+          width: 24px;
           height: 2px;
           background: #C41E1E;
           border-radius: 2px;
           transition: all 0.25s ease;
         }
 
-        .navbar-toggle.open span:nth-child(1) {
-          transform: translateY(7px) rotate(45deg);
+        .navbar-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .navbar-toggle.open span:nth-child(2) { opacity: 0; }
+        .navbar-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-drawer {
+          display: none;
         }
 
-        .navbar-toggle.open span:nth-child(2) {
-          opacity: 0;
-        }
-
-        .navbar-toggle.open span:nth-child(3) {
-          transform: translateY(-7px) rotate(-45deg);
-        }
-
-        /* Animations */
         @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(8px); }
+          from { opacity: 0; transform: translateY(5px); }
           to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ==========================================
-           BURGER MENU UNDER 1440px BREAKPOINT
-           ========================================== */
-        @media (max-width: 1439px) {
-          .navbar {
-            padding: 12px 20px;
-          }
+        @media (max-width: 1199px) {
+          .top-tier { display: none; }
+          .navbar-cta-desktop { display: none; }
+          .navbar-toggle { display: flex; }
 
-          .navbar-toggle {
-            display: flex;
-          }
-
-          .navbar-cta-desktop {
+          .mobile-drawer {
             display: none;
-          }
-
-          .navbar-cta-mobile {
-            display: block;
-            text-align: center;
-            margin-top: 12px;
-            width: 100%;
-          }
-
-          .navbar-links {
             position: absolute;
             top: 100%;
             left: 0;
             right: 0;
             background: #ffffff;
             flex-direction: column;
-            align-items: stretch;
             padding: 16px 20px 24px;
-            gap: 6px;
-            display: none;
-            border-bottom: 2px solid #FEE2E2;
-            box-shadow: 0 16px 30px rgba(0,0,0,0.1);
-            z-index: 100;
-            max-height: calc(100vh - 70px);
+            gap: 4px;
+            border-bottom: 3px solid #C41E1E;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            max-height: calc(100vh - 80px);
             overflow-y: auto;
+            z-index: 1000;
           }
 
-          .navbar-links.open {
-            display: flex;
-          }
+          .mobile-drawer.open { display: flex; }
 
-          .navbar-item-dropdown {
-            flex-direction: column;
-            align-items: stretch;
-            width: 100%;
-          }
-
-          .navbar-link {
+          .mobile-link {
             font-size: 15px;
-            padding: 10px 14px;
-            width: 100%;
+            font-weight: 600;
+            color: #2D0B0E;
+            text-decoration: none;
+            padding: 10px 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
             justify-content: space-between;
+            cursor: pointer;
           }
 
-          .navbar-dropdown {
-            position: static;
-            box-shadow: none;
-            border: none;
-            background: #FEF2F2;
+          .mobile-link:hover { background: #FEF2F2; color: #C41E1E; }
+
+          .mobile-dropdown {
             display: none;
-            margin: 4px 0 8px 12px;
+            background: #FEF2F2;
+            margin: 4px 0 6px 12px;
             padding: 6px;
             border-left: 3px solid #C41E1E;
             border-radius: 4px;
-            width: calc(100% - 12px);
           }
 
-          .navbar-dropdown.mobile-open {
-            display: block;
-          }
+          .mobile-dropdown.open { display: block; }
 
-          .navbar-item-dropdown:hover .navbar-dropdown {
+          .mobile-nested-dropdown {
             display: none;
-          }
-
-          .navbar-item-dropdown:hover .navbar-dropdown.mobile-open {
-            display: block;
-          }
-
-          .navbar-subdropdown {
-            position: static;
-            display: block;
-            box-shadow: none;
-            border: none;
-            background: transparent;
             padding-left: 12px;
-            margin-left: 0;
+            margin-top: 4px;
+            border-left: 2px dashed #C41E1E;
+          }
+
+          .mobile-nested-dropdown.open { display: block; }
+
+          .mobile-cta {
+            display: block;
+            text-align: center;
+            margin-top: 14px;
             width: 100%;
-          }
-
-          .navbar-caret-right {
-            transform: rotate(90deg);
-          }
-        }
-
-        /* Compact Mobile Screens (<480px) */
-        @media (max-width: 480px) {
-          .navbar {
-            padding: 10px 16px;
-          }
-          .navbar-brand-title {
-            font-size: 14px;
-          }
-          .navbar-brand-sub {
-            font-size: 9.5px;
-          }
-          .navbar-logo-img {
-            width: 36px;
-            height: 36px;
-          }
-          .navbar-logo {
-            width: 34px;
-            height: 34px;
-            font-size: 12px;
           }
         }
       `}</style>
 
-      {/* Main Nav Container */}
-      <nav className="navbar">
-        {/* Brand Logo & Name */}
-        <Link to="/" className="navbar-brand">
-          <img
-            src="/assets/images/logonew.png"
-            alt="KAP Logo"
-            className="navbar-logo-img"
-            onError={(e) => {
-              e.target.style.display = "none";
-              e.target.nextSibling.style.display = "flex";
-            }}
-          />
-          <span className="navbar-logo" style={{ display: "none" }}>
-            KA
-          </span>
-          <span className="navbar-brand-text">
-            <span className="navbar-brand-title">Kerala Academy</span>
-            <span className="navbar-brand-sub">of Pharmacy</span>
-          </span>
-        </Link>
+      {/* TIER 1: TOP RED STRIP */}
+      <div className="top-tier">
+        <div className="top-tier-container">
+          <div className="navbar-links-desktop">
+            {mainLinks.map((link) =>
+              link.children ? (
+                <div className="navbar-item-dropdown" key={link.label}>
+                  <Link
+                    to={link.to}
+                    className={`top-link ${
+                      location.pathname.startsWith(link.to) ? "active" : ""
+                    }`}
+                  >
+                    {link.label}
+                    <span className="navbar-caret">▾</span>
+                  </Link>
 
-        {/* Mobile Toggle Button */}
-        <button
-          className={`navbar-toggle ${open ? "open" : ""}`}
-          aria-label="Toggle menu"
-          onClick={() => setOpen(!open)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-
-        {/* Navigation Links */}
-        <div className={`navbar-links ${open ? "open" : ""}`}>
-          {mainLinks.map((link) =>
-            link.children ? (
-              <div className="navbar-item-dropdown" key={link.label}>
+                  <div className="navbar-dropdown">
+                    {link.children.map((child) =>
+                      child.children ? (
+                        <div
+                          className="navbar-subitem-dropdown"
+                          key={child.label}
+                        >
+                          <span className="navbar-dropdown-link">
+                            {child.label}
+                            <span className="navbar-caret-right">▸</span>
+                          </span>
+                          <div className="navbar-subdropdown">
+                            {child.children.map((grandchild) => (
+                              <Link
+                                key={grandchild.to}
+                                to={grandchild.to}
+                                className="navbar-dropdown-link"
+                              >
+                                {grandchild.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <Link
+                          key={child.to}
+                          to={child.to}
+                          className="navbar-dropdown-link"
+                        >
+                          {child.label}
+                        </Link>
+                      )
+                    )}
+                  </div>
+                </div>
+              ) : (
                 <Link
+                  key={link.label}
                   to={link.to}
-                  className={`navbar-link ${
-                    location.pathname.startsWith(link.to) ? "active" : ""
+                  className={`top-link ${
+                    location.pathname === link.to ? "active" : ""
                   }`}
-                  onClick={(e) => {
-                    if (open) {
-                      e.preventDefault();
-                      setMobileSubOpen(
-                        mobileSubOpen === link.label ? null : link.label
-                      );
-                    } else {
-                      setOpen(false);
-                    }
+                  onClick={() => {
+                    if (link.to === "/") handleHomeClick();
                   }}
                 >
                   {link.label}
-                  <span className="navbar-caret">▾</span>
                 </Link>
-
-                <div
-                  className={`navbar-dropdown ${
-                    mobileSubOpen === link.label ? "mobile-open" : ""
-                  }`}
-                >
-                  {link.children.map((child) =>
-                    child.children ? (
-                      <div className="navbar-subitem-dropdown" key={child.label}>
-                        <span className="navbar-dropdown-link navbar-dropdown-parent">
-                          {child.label}
-                          <span className="navbar-caret-right">▸</span>
-                        </span>
-                        <div className="navbar-subdropdown">
-                          {child.children.map((grandchild) => (
-                            <Link
-                              key={grandchild.to}
-                              to={grandchild.to}
-                              className="navbar-dropdown-link"
-                              onClick={() => {
-                                setOpen(false);
-                                setMobileSubOpen(null);
-                              }}
-                            >
-                              {grandchild.label}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    ) : (
-                      <Link
-                        key={child.to}
-                        to={child.to}
-                        className="navbar-dropdown-link"
-                        onClick={() => {
-                          setOpen(false);
-                          setMobileSubOpen(null);
-                        }}
-                      >
-                        {child.label}
-                      </Link>
-                    )
-                  )}
-                </div>
-              </div>
-            ) : (
-              <Link
-                key={link.label}
-                to={link.to}
-                className={`navbar-link ${
-                  location.pathname === link.to ? "active" : ""
-                }`}
-                onClick={() => setOpen(false)}
-              >
-                {link.label}
-              </Link>
-            )
-          )}
-
-          {/* CTA inside Mobile Drawer */}
-          <Link
-            to="/apply"
-            className="navbar-cta navbar-cta-mobile"
-            onClick={() => setOpen(false)}
-          >
-            Apply now
-          </Link>
+              )
+            )}
+          </div>
         </div>
+      </div>
 
-        {/* Desktop Call to Action Button */}
-        <Link to="/apply" className="navbar-cta navbar-cta-desktop">
-          Apply now
+      {/* TIER 2: MAIN BAR (LOGO CLICK SCROLLS TO TOP) */}
+      <div className="main-tier">
+        <div className="main-tier-container">
+          <Link to="/" className="navbar-brand" onClick={handleHomeClick}>
+            <img
+              src="/assets/images/logonew.png"
+              alt="KAP Logo"
+              className="navbar-logo-img"
+              onError={(e) => {
+                e.target.style.display = "none";
+                if (e.target.nextSibling) {
+                  e.target.nextSibling.style.display = "flex";
+                }
+              }}
+            />
+            <span className="navbar-logo" style={{ display: "none" }}>
+              KA
+            </span>
+            <span className="navbar-brand-text">
+              <span className="navbar-brand-title">Kerala Academy</span>
+              <span className="navbar-brand-sub">of Pharmacy</span>
+            </span>
+          </Link>
+
+          <Link to="/apply" className="navbar-cta navbar-cta-desktop">
+            Apply Now
+          </Link>
+
+          <button
+            className={`navbar-toggle ${open ? "open" : ""}`}
+            aria-label="Toggle Menu"
+            onClick={() => setOpen(!open)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+      </div>
+
+      {/* MOBILE ACCORDION DRAWER */}
+      <div className={`mobile-drawer ${open ? "open" : ""}`}>
+        {mainLinks.map((link) =>
+          link.children ? (
+            <div key={link.label}>
+              <div
+                className="mobile-link"
+                onClick={() =>
+                  setMobileSubOpen(
+                    mobileSubOpen === link.label ? null : link.label
+                  )
+                }
+              >
+                <span>{link.label}</span>
+                <span>▾</span>
+              </div>
+              <div
+                className={`mobile-dropdown ${
+                  mobileSubOpen === link.label ? "open" : ""
+                }`}
+              >
+                {link.children.map((child) =>
+                  child.children ? (
+                    <div key={child.label}>
+                      <div
+                        className="navbar-dropdown-link"
+                        onClick={() =>
+                          setMobileNestedOpen(
+                            mobileNestedOpen === child.label
+                              ? null
+                              : child.label
+                          )
+                        }
+                      >
+                        <span>{child.label}</span>
+                        <span>▾</span>
+                      </div>
+                      <div
+                        className={`mobile-nested-dropdown ${
+                          mobileNestedOpen === child.label ? "open" : ""
+                        }`}
+                      >
+                        {child.children.map((grandchild) => (
+                          <Link
+                            key={grandchild.to}
+                            to={grandchild.to}
+                            className="navbar-dropdown-link"
+                            onClick={() => setOpen(false)}
+                          >
+                            {grandchild.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <Link
+                      key={child.to}
+                      to={child.to}
+                      className="navbar-dropdown-link"
+                      onClick={() => setOpen(false)}
+                    >
+                      {child.label}
+                    </Link>
+                  )
+                )}
+              </div>
+            </div>
+          ) : (
+            <Link
+              key={link.label}
+              to={link.to}
+              className="mobile-link"
+              onClick={() => {
+                if (link.to === "/") handleHomeClick();
+                else setOpen(false);
+              }}
+            >
+              {link.label}
+            </Link>
+          )
+        )}
+        <Link
+          to="/apply"
+          className="navbar-cta mobile-cta"
+          onClick={() => setOpen(false)}
+        >
+          Apply Now
         </Link>
-      </nav>
+      </div>
     </header>
   );
 }

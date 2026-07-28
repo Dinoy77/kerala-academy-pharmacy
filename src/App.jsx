@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Placeholder from "./components/Placeholder";
 import Home from "./components/Home";
@@ -29,9 +30,21 @@ import Apply from "./components/Apply";
 import FloatingButtons from "./components/FloatingButtons";
 import "./App.css";
 
+// Helper component to scroll to top on page/route changes
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   return (
     <div className="App">
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

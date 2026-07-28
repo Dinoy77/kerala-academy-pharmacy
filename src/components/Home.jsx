@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import CongratsPopup from "./CongratsPopup";
 import EnquiryBox from "./EnquiryBox";
 
 function useResponsive() {
@@ -147,6 +146,34 @@ export default function Home() {
   const videoRef = useRef(null);
   const [muted, setMuted] = useState(true);
 
+  // BRAND SPLASH OVERLAY STATE (Triggers on every mount/page load)
+  const [showSplash, setShowSplash] = useState(true);
+  const [splashFading, setSplashFading] = useState(false);
+
+  useEffect(() => {
+    // Start fading after 1.8 seconds
+    const fadeTimer = setTimeout(() => {
+      setSplashFading(true);
+    }, 1800);
+
+    // Completely remove overlay after 2.4 seconds
+    const removeTimer = setTimeout(() => {
+      setShowSplash(false);
+    }, 2400);
+
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(removeTimer);
+    };
+  }, []);
+
+  const dismissSplash = () => {
+    setSplashFading(true);
+    setTimeout(() => {
+      setShowSplash(false);
+    }, 500);
+  };
+
   const toggleMute = () => {
     if (videoRef.current) {
       videoRef.current.muted = !videoRef.current.muted;
@@ -156,10 +183,24 @@ export default function Home() {
 
   return (
     <div style={styles.page}>
-      <CongratsPopup />
       <EnquiryBox />
 
       <style>{`
+        /* --- BRAND SPLASH OVERLAY KEYFRAMES --- */
+        @keyframes splashZoomIn {
+          0% { transform: scale(0.85); opacity: 0; }
+          50% { transform: scale(1.02); opacity: 1; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes splashRingGlow {
+          0%, 100% { box-shadow: 0 0 20px rgba(255, 209, 102, 0.4); }
+          50% { box-shadow: 0 0 50px rgba(255, 209, 102, 0.8), 0 0 90px rgba(196, 30, 30, 0.6); }
+        }
+        @keyframes splashShimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+
         @keyframes fadeUp { 
           from { opacity: 0; transform: translateY(20px); } 
           to { opacity: 1; transform: translateY(0); } 
@@ -217,7 +258,6 @@ export default function Home() {
           transform: translateY(-2px); 
         }
 
-        /* Lift and hover animations for cards */
         .kap-lift { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
         .kap-lift:hover { 
           transform: translateY(-6px); 
@@ -228,7 +268,6 @@ export default function Home() {
         .kap-icon { transition: transform 0.3s ease; }
         .kap-lift:hover .kap-icon { transform: rotate(-8deg) scale(1.12); }
 
-        /* Course image zoom effect */
         .kap-course-card:hover .kap-course-img {
           transform: scale(1.06);
         }
@@ -236,7 +275,6 @@ export default function Home() {
           transition: transform 0.4s ease;
         }
 
-        /* Blog image zoom effect */
         .kap-blog-card:hover .kap-blog-img {
           transform: scale(1.06);
         }
@@ -244,7 +282,7 @@ export default function Home() {
           transition: transform 0.4s ease;
         }
 
-        .kap-text-link { position: relative; display: inline-flex; alignItems: center; gap: 4px; }
+        .kap-text-link { position: relative; display: inline-flex; align-items: center; gap: 4px; }
         .kap-text-link::after { 
           content: ""; 
           position: absolute; 
@@ -274,8 +312,122 @@ export default function Home() {
         }
       `}</style>
 
-      {/* Hero — Full Background Video */}
+      {/* Hero Section */}
       <section style={styles.hero}>
+
+        {/* BRAND SPLASH OVERLAY */}
+        {showSplash && (
+          <div
+            onClick={dismissSplash}
+            style={{
+              position: "absolute",
+              inset: 0,
+              zIndex: 99,
+              background: "radial-gradient(circle at center, #8E1616 0%, #4A0808 100%)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "20px",
+              opacity: splashFading ? 0 : 1,
+              transform: splashFading ? "scale(1.05)" : "scale(1)",
+              transition: "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s ease-out",
+              cursor: "pointer",
+            }}
+          >
+            <div
+              style={{
+                textAlign: "center",
+                animation: "splashZoomIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+              }}
+            >
+              {/* Logo Emblem */}
+              <div
+                style={{
+                  width: isMobile ? "80px" : "100px",
+                  height: isMobile ? "80px" : "100px",
+                  margin: "0 auto 16px",
+                  borderRadius: "50%",
+                  background: "linear-gradient(135deg, #FFD166 0%, #C41E1E 100%)",
+                  padding: "3px",
+                  animation: "splashRingGlow 2.5s infinite ease-in-out",
+                }}
+              >
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "50%",
+                    background: "#ffffff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src="/assets/images/logonew.png"
+                    alt="KAP Logo"
+                    style={{ width: "80%", height: "80%", objectFit: "contain" }}
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                      if (e.target.nextSibling) e.target.nextSibling.style.display = "block";
+                    }}
+                  />
+                  <span
+                    style={{
+                      display: "none",
+                      fontSize: "28px",
+                      fontWeight: 900,
+                      color: "#C41E1E",
+                    }}
+                  >
+                    KAP
+                  </span>
+                </div>
+              </div>
+
+              {/* Splash Title */}
+              <h2
+                style={{
+                  color: "#ffffff",
+                  fontSize: isMobile ? "22px" : "32px",
+                  fontWeight: 800,
+                  letterSpacing: "-0.01em",
+                  margin: "0 0 6px",
+                }}
+              >
+                KERALA ACADEMY OF PHARMACY
+              </h2>
+              <div
+                style={{
+                  color: "#FFD166",
+                  fontSize: isMobile ? "11px" : "13px",
+                  letterSpacing: "0.25em",
+                  textTransform: "uppercase",
+                  fontWeight: 700,
+                  marginBottom: "24px",
+                }}
+              >
+                Excellence in Healthcare & Research
+              </div>
+
+              {/* Shimmering Line Divider */}
+              <div
+                style={{
+                  width: "120px",
+                  height: "2px",
+                  margin: "0 auto",
+                  background:
+                    "linear-gradient(90deg, transparent, #FFD166, transparent)",
+                  backgroundSize: "200% 100%",
+                  animation: "splashShimmer 1.5s infinite linear",
+                }}
+              />
+            </div>
+          </div>
+        )}
+
         <video
           ref={videoRef}
           style={styles.heroVideoBg}
@@ -286,7 +438,6 @@ export default function Home() {
           playsInline
           poster="/assets/images/college.jpeg"
         />
-
 
         <button
           onClick={toggleMute}
@@ -312,7 +463,6 @@ export default function Home() {
 
         <div style={styles.heroInner}>
           <div className="hero-fade-1" style={styles.heroText}>
-
             {/* Admissions Badge */}
             <div className="kap-badge-glow" style={styles.heroTag}>
               <span style={styles.badgePulse} />
@@ -411,7 +561,7 @@ export default function Home() {
 
       <YoutubeAutoplaySection styles={styles} />
 
-      {/* Reasons to study (Why KAP) */}
+      {/* Reasons to study */}
       <section style={styles.sectionShaded}>
         <div style={styles.sectionInner}>
           <div style={styles.sectionHeaderLeft}>
@@ -434,7 +584,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Courses (Programs) */}
+      {/* Courses */}
       <section style={styles.section}>
         <div style={styles.sectionHeaderLeft}>
           <div style={styles.eyebrow}>Programs</div>
@@ -687,7 +837,6 @@ const getStyles = (isMobile) => ({
     transition: "transform 0.4s ease, box-shadow 0.4s ease",
   },
 
-  /* About Section */
   aboutSection: {
     display: "flex",
     flexDirection: isMobile ? "column" : "row",
@@ -733,9 +882,8 @@ const getStyles = (isMobile) => ({
     border: "1px solid #FEE2E2",
   },
 
-  /* Section Wrappers */
   section: { padding: isMobile ? "40px 20px" : "72px 56px", background: "#ffffff" },
-  sectionShaded: { background: "#FEF2F2" }, // Soft background matching navbar tone
+  sectionShaded: { background: "#FEF2F2" },
   sectionInner: { maxWidth: "1200px", margin: "0 auto" },
   sectionHeaderLeft: { marginBottom: "36px", maxWidth: "600px" },
   sectionHeadingLeft: { fontSize: isMobile ? "24px" : "32px", color: "#1a1615", marginBottom: "10px", fontWeight: 800, letterSpacing: "-0.01em" },
@@ -747,7 +895,6 @@ const getStyles = (isMobile) => ({
     gap: isMobile ? "18px" : "28px",
   },
 
-  /* Why KAP Section */
   reasonCard: {
     background: "#ffffff",
     borderRadius: "20px",
@@ -765,7 +912,7 @@ const getStyles = (isMobile) => ({
     color: "#ffffff",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center", // <--- Fixed to camelCase
     margin: "0 auto 20px",
     fontSize: "24px",
     boxShadow: "0 6px 16px rgba(196,30,30,0.25)",
@@ -773,7 +920,6 @@ const getStyles = (isMobile) => ({
   cardTitle: { fontSize: "17px", color: "#1a1615", marginBottom: "10px", fontWeight: 700 },
   cardText: { fontSize: "14px", color: "#6b625a", lineHeight: 1.65 },
 
-  /* Course / Program Cards */
   courseCard: {
     background: "#ffffff",
     borderRadius: "20px",
@@ -820,7 +966,6 @@ const getStyles = (isMobile) => ({
   courseDesc: { fontSize: "13.5px", color: "#6b625a", lineHeight: 1.55, marginBottom: "18px", flex: 1 },
   courseLink: { color: "#C41E1E", fontSize: "14px", textDecoration: "none", fontWeight: 700 },
 
-  /* Blog Section */
   blogScrollOuter: { overflow: "hidden", width: "100%", padding: "10px 0 20px" },
   blogTrack: { display: "flex", gap: "24px", width: "max-content" },
   blogCard: {
