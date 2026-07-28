@@ -603,7 +603,7 @@ export default function Home() {
               </div>
               <div style={styles.courseCardBody}>
                 <h3 style={styles.courseTitle}>{c.title}</h3>
-                <p style={styles.courseDesc}>Comprehensive hands-on training with clinical & industry integration.</p>
+                
                 <Link to={c.link} className="kap-text-link" style={styles.courseLink}>
                   Explore Program <span>→</span>
                 </Link>
