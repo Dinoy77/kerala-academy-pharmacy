@@ -18,17 +18,17 @@ const reasons = [
   {
     title: "World Class Faculty",
     desc: "Outstanding and highly qualified faculty members with an excellent curriculum framed with academics and industry experts.",
-    icon: "🎓"
+    image: "/assets/images/faculty1.jpg"
   },
   {
     title: "Pioneering Research",
     desc: "Hands-on opportunities to work under expert guidance, using the latest facilities and tools to discover and publish.",
-    icon: "🔬"
+    image: "/assets/images/research.jpg"
   },
   {
     title: "Global Exposure",
     desc: "Collaborations with top national and international universities through transformative exchange programmes.",
-    icon: "🌍"
+    image: "/assets/images/global.jpg"
   },
 ];
 
@@ -273,6 +273,9 @@ export default function Home() {
         }
         .kap-course-img {
           transition: transform 0.4s ease;
+        }
+          .kap-reason-card:hover img {
+          transform: scale(1.08);
         }
 
         .kap-blog-card:hover .kap-blog-img {
@@ -574,10 +577,21 @@ export default function Home() {
           </div>
           <div style={styles.grid3}>
             {reasons.map((r) => (
-              <div className="kap-lift" style={styles.reasonCard} key={r.title}>
-                <div className="kap-icon" style={styles.iconCircle}>{r.icon}</div>
-                <h3 style={styles.cardTitle}>{r.title}</h3>
-                <p style={styles.cardText}>{r.desc}</p>
+              <div className="kap-reason-card kap-lift" style={styles.reasonCard} key={r.title}>
+                {/* Image Banner Container */}
+                <div style={styles.iconCircle}>
+                  <img
+                    src={r.image}
+                    alt={r.title}
+                    style={styles.reasonImg}
+                  />
+                </div>
+
+                {/* Card Body Container */}
+                <div style={styles.reasonCardBody}>
+                  <h3 style={styles.cardTitle}>{r.title}</h3>
+                  <p style={styles.cardText}>{r.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -603,7 +617,7 @@ export default function Home() {
               </div>
               <div style={styles.courseCardBody}>
                 <h3 style={styles.courseTitle}>{c.title}</h3>
-                
+
                 <Link to={c.link} className="kap-text-link" style={styles.courseLink}>
                   Explore Program <span>→</span>
                 </Link>
@@ -897,28 +911,46 @@ const getStyles = (isMobile) => ({
 
   reasonCard: {
     background: "#ffffff",
-    borderRadius: "20px",
-    padding: "32px 24px",
-    textAlign: "center",
+    borderRadius: "22px",
+    overflow: "hidden", // Keeps image inside rounded corners
+    textAlign: "left",
     border: "1px solid #FEE2E2",
-    boxShadow: "0 6px 20px rgba(196,30,30,0.05)",
-    cursor: "default",
-  },
-  iconCircle: {
-    width: "56px",
-    height: "56px",
-    borderRadius: "50%",
-    background: "linear-gradient(135deg, #C41E1E 0%, #8E1616 100%)",
-    color: "#ffffff",
+    boxShadow: "0 8px 25px rgba(196, 30, 30, 0.06)",
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center", // <--- Fixed to camelCase
-    margin: "0 auto 20px",
-    fontSize: "24px",
-    boxShadow: "0 6px 16px rgba(196,30,30,0.25)",
+    flexDirection: "column",
   },
-  cardTitle: { fontSize: "17px", color: "#1a1615", marginBottom: "10px", fontWeight: 700 },
-  cardText: { fontSize: "14px", color: "#6b625a", lineHeight: 1.65 },
+  reasonCardBody: {
+    padding: "24px 22px 28px",
+    display: "flex",
+    flexDirection: "column",
+    flex: 1,
+  },
+
+  iconCircle: {
+    width: "100%",
+    height: isMobile ? "180px" : "210px",
+    overflow: "hidden",
+    position: "relative",
+  },
+
+  reasonImg: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    transition: "transform 0.5s ease",
+  },
+  cardTitle: {
+    fontSize: "20px",
+    color: "#1a1615",
+    marginBottom: "10px",
+    fontWeight: 800,
+    letterSpacing: "-0.01em"
+  },
+  cardText: {
+    fontSize: "14.5px",
+    color: "#5c544e",
+    lineHeight: 1.65
+  },
 
   courseCard: {
     background: "#ffffff",
