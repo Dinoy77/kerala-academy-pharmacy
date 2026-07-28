@@ -33,9 +33,9 @@ const reasons = [
 ];
 
 const courses = [
-  { title: "B-Pharm", duration: "4 Years", image: "/assets/images/lab.jpeg", link: "/bpharm" },
-  { title: "D-Pharm", duration: "2 Years", image: "/assets/images/lab2.jpeg", link: "/dpharm" },
-  { title: "B-Pharm (Lateral Entry)", duration: "3 Years", image: "/assets/images/kap2.jpeg", link: "/mpharm" },
+  { title: "B-Pharm", duration: "4 Years", image: "/assets/images/bpharm-student.png", link: "/bpharm" },
+  { title: "D-Pharm", duration: "2 Years", image: "/assets/images/dpharm-student.png", link: "/dpharm" },
+  { title: "B-Pharm (Lateral Entry)", duration: "3 Years", image: "/assets/images/lateral-student.png", link: "/mpharm" },
 ];
 
 const blogs = [
