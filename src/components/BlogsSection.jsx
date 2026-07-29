@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 
 const blogs = [
-  { image: "/assets/images/lab.jpeg", description: "Study about pharmaceutical chemistry.", tag: "Chemistry", slug: "blogh1" },
-  { image: "/assets/images/lab2.jpeg", description: "Study about Pharma practice.", tag: "Practice", slug: "blogh2" },
-  { image: "/assets/images/kap2.jpeg", description: "Study about Pharmaceutics.", tag: "Pharmaceutics", slug: "blogh3" },
-  { image: "/assets/images/kap3.jpeg", description: "Study about pharmacognosy and Phytochemistry.", tag: "Research", slug: "blogh4" },
-  { image: "/assets/images/lab.jpeg", description: "Study about pharmacology.", tag: "Pharmacology", slug: "blogh5" },
-  { image: "/assets/images/cls.jpeg", description: "Pharmacopoeia.", tag: "Guide", slug: "blogh6" },
-  { image: "/assets/images/lab2.jpeg", description: "How to become a Pharmacist.", tag: "Career", slug: "blogh7" },
-  { image: "/assets/images/b17.jpg", description: "Why Pharmacy is a good career.", tag: "Insights", slug: "blogh8" },
+  { image: "/assets/images/blog_ai_1.jpg", description: "Study about pharmaceutical chemistry.", tag: "Chemistry", slug: "blogh1" },
+  { image: "/assets/images/blog_ai_2.jpg", description: "Study about Pharma practice.", tag: "Practice", slug: "blogh2" },
+  { image: "/assets/images/blog_ai_3.jpg", description: "Study about Pharmaceutics.", tag: "Pharmaceutics", slug: "blogh3" },
+  { image: "/assets/images/blog_ai_4.jpg", description: "Study about pharmacognosy and Phytochemistry.", tag: "Research", slug: "blogh4" },
+  { image: "/assets/images/blog_ai_5.jpg", description: "Study about pharmacology.", tag: "Pharmacology", slug: "blogh5" },
+  { image: "/assets/images/blog_ai_6.jpg", description: "Pharmacopoeia.", tag: "Guide", slug: "blogh6" },
+  { image: "/assets/images/blog_ai_7.jpg", description: "How to become a Pharmacist.", tag: "Career", slug: "blogh7" },
+  { image: "/assets/images/blog_ai_8.jpg", description: "Why Pharmacy is a good career.", tag: "Insights", slug: "blogh8" },
 ];
 
 export default function BlogsSection({ styles }) {
