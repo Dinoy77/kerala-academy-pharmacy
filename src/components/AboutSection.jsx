@@ -86,12 +86,6 @@ export default function AboutSection({ styles }) {
           />
           {/* Bottom Gradient Overlay */}
           <div style={styles.aboutImageOverlay} />
-
-          {/* Floating Metric Badge */}
-          <div style={styles.aboutGlassBadge}>
-            <div style={styles.badgeNumber}>10+</div>
-            <div style={styles.badgeText}>Years of Academic Excellence</div>
-          </div>
         </div>
       </div>
     </section>
