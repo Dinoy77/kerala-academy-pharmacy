@@ -13,7 +13,44 @@ function useResponsive() {
   }, []);
   return width < 768;
 }
+function RevealCard({ children, index = 0, style }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
 
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        ...style,
+        opacity: visible ? 1 : 0,
+        transform: visible
+          ? "translateY(0) scale(1) rotate(0deg)"
+          : "translateY(60px) scale(0.9) rotate(-3deg)",
+        transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${index * 0.15}s, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${index * 0.15}s`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
 const reasons = [
   {
     title: "World Class Faculty",
@@ -576,23 +613,25 @@ export default function Home() {
             </p>
           </div>
           <div style={styles.grid3}>
-            {reasons.map((r) => (
-              <div className="kap-reason-card kap-lift" style={styles.reasonCard} key={r.title}>
-                {/* Image Banner Container */}
-                <div style={styles.iconCircle}>
-                  <img
-                    src={r.image}
-                    alt={r.title}
-                    style={styles.reasonImg}
-                  />
-                </div>
+            {reasons.map((r, i) => (
+              <RevealCard index={i} key={r.title}>
+                <div className="kap-reason-card kap-lift" style={styles.reasonCard}>
+                  {/* Image Banner Container */}
+                  <div style={styles.iconCircle}>
+                    <img
+                      src={r.image}
+                      alt={r.title}
+                      style={styles.reasonImg}
+                    />
+                  </div>
 
-                {/* Card Body Container */}
-                <div style={styles.reasonCardBody}>
-                  <h3 style={styles.cardTitle}>{r.title}</h3>
-                  <p style={styles.cardText}>{r.desc}</p>
+                  {/* Card Body Container */}
+                  <div style={styles.reasonCardBody}>
+                    <h3 style={styles.cardTitle}>{r.title}</h3>
+                    <p style={styles.cardText}>{r.desc}</p>
+                  </div>
                 </div>
-              </div>
+              </RevealCard>
             ))}
           </div>
         </div>
