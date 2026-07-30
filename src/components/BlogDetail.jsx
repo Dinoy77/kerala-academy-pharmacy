@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { blogs } from "./BlogList";
+import { blogs } from "../data/blogsData";
 
 function useResponsive() {
   const [width, setWidth] = useState(

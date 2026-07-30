@@ -1,17 +1,10 @@
 import { Link } from "react-router-dom";
-
-const blogs = [
-  { image: "/assets/images/blog_ai_1.jpg", description: "Study about pharmaceutical chemistry.", tag: "Chemistry", slug: "blogh1" },
-  { image: "/assets/images/blog_ai_2.jpg", description: "Study about Pharma practice.", tag: "Practice", slug: "blogh2" },
-  { image: "/assets/images/blog_ai_3.jpg", description: "Study about Pharmaceutics.", tag: "Pharmaceutics", slug: "blogh3" },
-  { image: "/assets/images/blog_ai_4.jpg", description: "Study about pharmacognosy and Phytochemistry.", tag: "Research", slug: "blogh4" },
-  { image: "/assets/images/blog_ai_5.jpg", description: "Study about pharmacology.", tag: "Pharmacology", slug: "blogh5" },
-  { image: "/assets/images/blog_ai_6.jpg", description: "Pharmacopoeia.", tag: "Guide", slug: "blogh6" },
-  { image: "/assets/images/blog_ai_7.jpg", description: "How to become a Pharmacist.", tag: "Career", slug: "blogh7" },
-  { image: "/assets/images/blog_ai_8.jpg", description: "Why Pharmacy is a good career.", tag: "Insights", slug: "blogh8" },
-];
+import { blogs } from "../data/blogsData"; // Adjust path if blogsData.js is placed elsewhere
 
 export default function BlogsSection({ styles }) {
+  // Filter or take the specific featured home blogs (slugs starting with blogh)
+  const homeFeaturedBlogs = blogs.filter((b) => b.slug.startsWith("blogh"));
+
   return (
     <section style={styles.sectionShaded}>
       <div style={styles.sectionInner}>
@@ -22,14 +15,14 @@ export default function BlogsSection({ styles }) {
         </div>
         <div style={styles.blogScrollOuter}>
           <div className="blog-track" style={styles.blogTrack}>
-            {[...blogs, ...blogs].map((b, i) => (
+            {[...homeFeaturedBlogs, ...homeFeaturedBlogs].map((b, i) => (
               <div className="kap-blog-card kap-lift" style={styles.blogCard} key={`${b.slug}-${i}`}>
                 <div style={styles.blogImageWrapper}>
                   <div className="kap-blog-img" style={{ ...styles.blogImage, backgroundImage: `url("${b.image}")` }} />
                   <span style={styles.blogCategoryTag}>{b.tag}</span>
                 </div>
                 <div style={styles.blogCardBody}>
-                  <p style={styles.blogText}>{b.description}</p>
+                  <p style={styles.blogText}>{b.title || b.desc}</p>
                   <Link to={`/blogs/${b.slug}`} style={styles.blogReadMore}>
                     Read Article <span style={{ marginLeft: "4px" }}>→</span>
                   </Link>
