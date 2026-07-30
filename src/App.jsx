@@ -27,6 +27,7 @@ import Contact from "./components/Contact";
 import CareerOpenings from "./components/CareerOpenings";
 import Faq from "./components/Faq";
 import Apply from "./components/Apply";
+import OnlineAdmission from "./components/OnlineAdmission";
 import FloatingButtons from "./components/FloatingButtons";
 import "./App.css";
 
@@ -59,7 +60,7 @@ function App() {
         <Route path="/dpharm" element={<DPharm />} />
         <Route path="/mpharm" element={<MPharm />} />
         <Route path="/department" element={<Department />} />
-        <Route path="/online-admission" element={<Placeholder title="Online Admission Registration" />} />
+        <Route path="/online-admission" element={<OnlineAdmission />} />
         <Route path="/online-payment" element={<Placeholder title="Online Payment" />} />
         <Route path="/approval" element={<Approval />} />
         <Route path="/events" element={<Events />} />
