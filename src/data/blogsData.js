@@ -3,7 +3,7 @@ const IMG = "/assets/images/";
 export const blogs = [
   {
     slug: "blog1",
-    image: IMG + "b1.jpg",
+    image: IMG + "b1.png",
     title: "12 June World Day Against Child Labour",
     tag: "Awareness",
     desc: "World Day Against Child Labour, observed on June 12th, holds a special place in the domain of Kerala Academy of Pharmacy. This day highlights the",
@@ -14,7 +14,7 @@ export const blogs = [
   },
   {
     slug: "blog2",
-    image: IMG + "brain.jpg",
+    image: IMG + "brain.png",
     title: "8 June World Brain Tumour Day",
     tag: "Health",
     desc: "World Brain Tumour Day, observed on June 8th, holds significant importance for the domain of Kerala Academy of Pharmacy. This day emphasizes the need to",
@@ -25,7 +25,7 @@ export const blogs = [
   },
   {
     slug: "blog3",
-    image: IMG + "b3.jpg",
+    image: IMG + "b3.png",
     title: "7 June World Food Safety Day",
     tag: "Safety",
     desc: "For the Kerala Academy of Pharmacy (KAP), World Food Safety Day on June 7 holds immense importance as the institution recognizes the critical role of",
@@ -37,7 +37,7 @@ export const blogs = [
   },
   {
     slug: "blog4",
-    image: IMG + "b4.png",
+    image: IMG + "b4.jpg",
     title: "The Impact of Technology on Pharmacy Practice: Opportunities and Challenges",
     tag: "Technology",
     desc: "The practice of pharmacy has been transformed by technology, which has created both opportunities and challenges for pharmacists, healthcare providers, and patients. As technology continues",
@@ -59,7 +59,7 @@ export const blogs = [
   },
   {
     slug: "blog5",
-    image: IMG + "b5.jpg",
+    image: IMG + "b5.png",
     title: "The Role of Pharmacists in the Healthcare System: What You Need to Know?",
     tag: "Healthcare",
     desc: "Pharmacists play a critical role in the healthcare system by ensuring the safe and effective use of medications. They work collaboratively with other healthcare professionals,",
@@ -94,7 +94,7 @@ export const blogs = [
   },
   {
     slug: "blog6",
-    image: IMG + "b6.jpg",
+    image: IMG + "b6.png",
     title: "How to Succeed in Your Pharmacy Program: Tips, Strategies and Exploring Different Career Paths",
     tag: "Success",
     desc: "(Kerala Academy of Pharmacy placement cell). Pharmacy is a vast field with diverse career paths that range from community pharmacy to clinical pharmacy, research, academia, and industry. Each career path requires",
@@ -116,7 +116,7 @@ export const blogs = [
   },
   {
     slug: "blog7",
-    image: IMG + "b7.webp",
+    image: IMG + "b7.jpg",
     title: "International Nurse's Day — 12th May",
     tag: "Tribute",
     desc: "International Nurse's Day is a time to celebrate the hard work and dedication of nurses all over the world. Nurses are an essential part of",
@@ -127,7 +127,7 @@ export const blogs = [
   },
   {
     slug: "blog8",
-    image: IMG + "b8.jpg",
+    image: IMG + "b8.png",
     title: "World Tuberculosis (TB) Day — 24th March",
     tag: "Awareness",
     desc: "Tuberculosis is caused by a bacterium called Mycobacterium tuberculosis and primarily affects the lungs, but can also infect other parts of the body. It is",
