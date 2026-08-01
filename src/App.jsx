@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Placeholder from "./components/Placeholder";
@@ -32,6 +32,88 @@ import OnlinePayment from "./components/OnlinePayment";
 import FloatingButtons from "./components/FloatingButtons";
 import "./App.css";
 
+let splashAlreadyShown = false;
+
+function SplashScreen() {
+  const [visible, setVisible] = useState(!splashAlreadyShown);
+  const [fading, setFading] = useState(false);
+  useEffect(() => {
+    splashAlreadyShown = true;
+
+    const fadeTimer = setTimeout(() => setFading(true), 1800);
+    const removeTimer = setTimeout(() => setVisible(false), 2400);
+
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(removeTimer);
+    };
+  }, []);
+
+  if (!visible) return null;
+
+  return (
+    <div
+      onClick={() => {
+        setFading(true);
+        setTimeout(() => setVisible(false), 500);
+      }}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 9999,
+        background: "radial-gradient(circle at center, #8E1616 0%, #4A0808 100%)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "20px",
+        opacity: fading ? 0 : 1,
+        transform: fading ? "scale(1.05)" : "scale(1)",
+        transition: "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s ease-out",
+        cursor: "pointer",
+      }}
+    >
+      <div style={{ textAlign: "center" }}>
+        <div
+          style={{
+            width: "100px",
+            height: "100px",
+            margin: "0 auto 16px",
+            borderRadius: "50%",
+            background: "linear-gradient(135deg, #FFD166 0%, #C41E1E 100%)",
+            padding: "3px",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              borderRadius: "50%",
+              background: "#ffffff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+            }}
+          >
+            <img
+              src="/assets/images/logonew.png"
+              alt="KAP Logo"
+              style={{ width: "80%", height: "80%", objectFit: "contain" }}
+            />
+          </div>
+        </div>
+        <h2 style={{ color: "#ffffff", fontSize: "28px", fontWeight: 800, margin: "0 0 6px" }}>
+          KERALA ACADEMY OF PHARMACY
+        </h2>
+        <div style={{ color: "#FFD166", fontSize: "12px", letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 700 }}>
+          Excellence in Healthcare & Research
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Helper component to scroll to top on page/route changes
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -46,6 +128,7 @@ function ScrollToTop() {
 function App() {
   return (
     <div className="App">
+      <SplashScreen />
       <ScrollToTop />
       <Navbar />
       <Routes>
