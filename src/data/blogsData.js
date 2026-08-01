@@ -139,7 +139,7 @@ export const blogs = [
   },
   {
     slug: "blog9",
-    image: IMG + "b9.png",
+    image: IMG + "b9.jpg",
     title: "Employee Appreciation Day — 4th March",
     tag: "Culture",
     desc: "Employee Appreciation Day is a time set aside to honour and celebrate the efforts and labor of workers. Every year, it is usually observed on",
@@ -150,7 +150,7 @@ export const blogs = [
   },
   {
     slug: "blog10",
-    image: IMG + "b10.jpg",
+    image: IMG + "b10.png",
     title: "Self Injury Awareness Day",
     tag: "Health",
     desc: "On March 1, a grassroots global awareness campaign known as Self-Injury Awareness Day (SIAD) is held annually. Some people choose to be more open about",
@@ -161,7 +161,7 @@ export const blogs = [
   },
   {
     slug: "blog11",
-    image: IMG + "b11.png",
+    image: IMG + "b11.jpg",
     title: "Rare Disease Day — 28th February",
     tag: "Research",
     desc: "The celebration of Rare Disease Day, which takes place on the last day of February, aims to improve access to treatment and medical representation for",
@@ -173,7 +173,7 @@ export const blogs = [
   },
   {
     slug: "blog12",
-    image: IMG + "b12.jpg",
+    image: IMG + "b12.png",
     title: "National Science Day — 28th February",
     tag: "Science",
     desc: 'To commemorate the announcement of the discovery of the "Raman Effect," the Indian government, led by then-Prime Minister Rajiv Gandhi, declared February 28 to be',
