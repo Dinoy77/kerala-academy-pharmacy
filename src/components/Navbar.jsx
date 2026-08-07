@@ -256,6 +256,12 @@ export default function Navbar() {
           font-weight: 700;
         }
 
+        .navbar-brand-accent {
+          color: #C41E1E;
+          font-family: Georgia, "Times New Roman", serif;
+          font-style: italic;
+        }
+
         .navbar-cta {
           background: linear-gradient(135deg, #C41E1E 0%, #9B1818 100%);
           color: #ffffff;
@@ -388,9 +394,8 @@ export default function Navbar() {
                 <div className="navbar-item-dropdown" key={link.label}>
                   <Link
                     to={link.to}
-                    className={`top-link ${
-                      location.pathname.startsWith(link.to) ? "active" : ""
-                    }`}
+                    className={`top-link ${location.pathname.startsWith(link.to) ? "active" : ""
+                      }`}
                   >
                     {link.label}
                     <span className="navbar-caret">▾</span>
@@ -435,9 +440,8 @@ export default function Navbar() {
                 <Link
                   key={link.label}
                   to={link.to}
-                  className={`top-link ${
-                    location.pathname === link.to ? "active" : ""
-                  }`}
+                  className={`top-link ${location.pathname === link.to ? "active" : ""
+                    }`}
                   onClick={() => {
                     if (link.to === "/") handleHomeClick();
                   }}
@@ -469,8 +473,9 @@ export default function Navbar() {
               KA
             </span>
             <span className="navbar-brand-text">
-              <span className="navbar-brand-title">Kerala Academy</span>
-              <span className="navbar-brand-sub">of Pharmacy</span>
+              <span className="navbar-brand-title">
+                KERALA ACADEMY <span className="navbar-brand-accent">OF PHARMACY</span>
+              </span>
             </span>
           </Link>
 
@@ -507,9 +512,8 @@ export default function Navbar() {
                 <span>▾</span>
               </div>
               <div
-                className={`mobile-dropdown ${
-                  mobileSubOpen === link.label ? "open" : ""
-                }`}
+                className={`mobile-dropdown ${mobileSubOpen === link.label ? "open" : ""
+                  }`}
               >
                 {link.children.map((child) =>
                   child.children ? (
@@ -528,9 +532,8 @@ export default function Navbar() {
                         <span>▾</span>
                       </div>
                       <div
-                        className={`mobile-nested-dropdown ${
-                          mobileNestedOpen === child.label ? "open" : ""
-                        }`}
+                        className={`mobile-nested-dropdown ${mobileNestedOpen === child.label ? "open" : ""
+                          }`}
                       >
                         {child.children.map((grandchild) => (
                           <Link

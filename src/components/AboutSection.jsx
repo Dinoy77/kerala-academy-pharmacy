@@ -35,7 +35,7 @@ export default function AboutSection({ styles }) {
         </div>
         
         <h2 style={styles.aboutHeading}>
-          Welcome to <span style={styles.headingAccent}>Kerala Academy</span> of Pharmacy
+          Welcome to the <span style={styles.headingAccent}> World of Pharmacy</span> Education
         </h2>
         
         <p style={styles.paragraphLeft}>
