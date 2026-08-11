@@ -16,7 +16,7 @@ function useResponsive() {
 const infoLinks = [
   { title: "College Rules & Regulations", href: "/documents/THE_RULES_AND_REGULATION_OF_KAP.pdf", external: true },
   { title: "Hostel Fees Information", href: "#hostel-fee-structure" },
-  { title: "Exam Notifications", href: "#exam-notifications" },
+  { title: "Exam Notifications", href: "/documents/EXAM_NOTIFICATION.pdf", external: true },
   { title: "University Results", href: "#university-results" },
   { title: "D-Pharm Results", href: "#dpharm-results" },
   { title: "Other Fees Collected by College", href: "#other-fee-structure" },
