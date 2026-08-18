@@ -21,7 +21,7 @@ const infoLinks = [
   { title: "D-Pharm Results", href: "#dpharm-results" },
   { title: "Other Fees Collected by College", href: "#other-fee-structure" },
   { title: "Events", href: "/events", isRoute: true },
-  { title: "Procedure for Releasing Original Documents", href: "/documents/PROCEDURE_FOR_RELEASING_ORIGINAL_DOCUMENTS.pdf", external: true },
+  { title: "Procedure for Releasing Original Documents", href: "#release-of-documents" },
   { title: "Procedure for Collecting Transfer Certificate (TC)", href: "/documents/PROCEDURE_FOR_COLLECTING_TRANSFER_CERTIFICATE.pdf", external: true },
   { title: "Uniform Details", href: "#uniform-fee-structure" },
   { title: "College Transportation Details", href: "#transportation-details" },
@@ -157,6 +157,42 @@ export default function InformationCenter() {
           <strong>NB:</strong> The uniform fee structure is the same for both B-Pharm and D-Pharm students.
         </p>
       </section>
+
+      {/* Release of Original Documents */}
+      <section id="release-of-documents" style={styles.tableSectionShaded}>
+        <h2 style={styles.tableHeading}>Rule – Release of Original Documents</h2>
+
+        <h3 style={styles.subHeading}>Students Continuing the Course</h3>
+        <p style={styles.paragraph}>
+          Students having supplementary examinations, arrears, or pending
+          subjects who wish to continue their course and appear for the
+          pending examinations shall be eligible to receive their documents
+          submitted at the time of admission only after the successful
+          completion of the course.
+        </p>
+
+        <h3 style={styles.subHeading}>Students Discontinuing the Course</h3>
+        <p style={styles.paragraph}>
+          Students who wish to discontinue their course may apply for the
+          release of their original documents, subject to submission of all
+          relevant fee receipts and completion of the prescribed formalities.
+        </p>
+
+        <h3 style={styles.subHeading}>Transfer Certificate (TC)</h3>
+        <p style={styles.paragraph}>
+          For issuance of a Transfer Certificate, the parent (Mother/Father)
+          who was present at the time of admission must visit the
+          institution along with the student to complete the required
+          procedures.
+        </p>
+
+        <h3 style={styles.subHeading}>Applicability</h3>
+        <p style={styles.paragraph}>
+          The above procedure shall be applicable uniformly to all students,
+          based on their academic status and their decision to continue or
+          discontinue the course.
+        </p>
+      </section>
     </div>
   );
 }
@@ -245,6 +281,14 @@ const getStyles = (isMobile) => ({
     padding: isMobile ? "32px 20px" : "48px 40px",
     scrollMarginTop: "80px",
   },
+  subHeading: {
+    fontSize: isMobile ? "14px" : "15.5px",
+    color: "#6b1f27",
+    marginTop: "18px",
+    marginBottom: "6px",
+    fontWeight: 700,
+  },
+
   tableHeading: {
     fontSize: isMobile ? "17px" : "20px",
     color: "#3a1418",
@@ -272,6 +316,12 @@ const getStyles = (isMobile) => ({
     padding: "10px 14px",
     borderTop: "1px solid #ece6d8",
     color: "#4a433e",
+  },
+  paragraph: {
+    fontSize: isMobile ? "13px" : "14px",
+    lineHeight: 1.8,
+    color: "#4a433e",
+    marginBottom: "8px",
   },
   note: {
     fontSize: "12.5px",
