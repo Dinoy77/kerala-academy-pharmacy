@@ -193,10 +193,16 @@ export default function Navbar() {
         }
 
         /* TIER 2: MAIN BRAND & APPLY ROW */
-        .main-tier {
+                .main-tier {
           background: #ffffff;
-          padding: 12px 32px;
+          padding: 12px 16px;
           border-bottom: 1px solid #FEF2F2;
+        }
+
+        @media (max-width: 767px) {
+          .main-tier {
+            padding: 10px 12px;
+          }
         }
 
         .main-tier-container {
@@ -207,19 +213,28 @@ export default function Navbar() {
           justify-content: space-between;
         }
 
-        .navbar-brand {
+                .navbar-brand {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 10px;
           text-decoration: none;
-          flex-shrink: 0;
+          flex-shrink: 1;
+          min-width: 0;
           cursor: pointer;
         }
 
-        .navbar-logo-img {
+                .navbar-logo-img {
           width: 50px;
           height: 50px;
           object-fit: contain;
+          flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+          .navbar-logo-img {
+            width: 38px;
+            height: 38px;
+          }
         }
 
         .navbar-logo {
@@ -235,10 +250,11 @@ export default function Navbar() {
           font-weight: 800;
         }
 
-        .navbar-brand-text {
+               .navbar-brand-text {
           display: flex;
           flex-direction: column;
-          line-height: 1.1;
+          line-height: 1.15;
+          min-width: 0;
         }
 
         .navbar-brand-title {
@@ -246,6 +262,18 @@ export default function Navbar() {
           font-weight: 800;
           color: #1A1615;
           letter-spacing: -0.01em;
+        }
+
+         @media (max-width: 480px) {
+          .navbar-brand-title {
+            font-size: 13px;
+          }
+        }
+
+        @media (min-width: 481px) and (max-width: 767px) {
+          .navbar-brand-title {
+            font-size: 15px;
+          }
         }
 
         .navbar-brand-sub {
