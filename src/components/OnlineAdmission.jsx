@@ -168,6 +168,7 @@ const getStyles = (isMobile) => ({
     background: "#fff",
     borderRadius: "14px",
     padding: isMobile ? "24px 20px" : "40px",
+    border: "1px solid #000",
     boxShadow: "0 4px 24px rgba(58,20,24,0.08)",
   },
   heading: {
@@ -186,7 +187,7 @@ const getStyles = (isMobile) => ({
   input: {
     padding: "10px 12px",
     borderRadius: "8px",
-    border: "1px solid #ece6d8",
+    border: "1px solid #000",
     fontSize: "16px",
     fontFamily: "inherit",
     width: "100%",
