@@ -16,7 +16,14 @@ function useResponsive() {
 const infoLinks = [
   { title: "College Rules & Regulations", href: "/documents/THE_RULES_AND_REGULATION_OF_KAP.pdf", external: true },
   { title: "Hostel Fees Information", href: "#hostel-fee-structure" },
-  { title: "Exam Notifications", href: "/documents/EXAM_NOTIFICATION.pdf", external: true },
+  {
+    title: "Exam Notifications",
+    multi: true,
+    links: [
+      { label: "B-Pharm Sem 2 Exam Notification", href: "/documents/BPHARM_SEM2_EXAM_NOTIFICATION.pdf" },
+      { label: "D-Pharm Exam Notification", href: "/documents/EXAM_NOTIFICATION.pdf" },
+    ],
+  },
   { title: "University Results", href: "#university-results" },
   { title: "D-Pharm Results", href: "#dpharm-results" },
   { title: "Other Fees Collected by College", href: "#other-fee-structure" },
@@ -52,6 +59,23 @@ export default function InformationCenter() {
                 <h3 style={styles.cardTitle}>{link.title}</h3>
                 <Link to={link.href} style={styles.knowMore}>Know More</Link>
               </div>
+            ) : link.multi ? (
+              <div style={styles.card} key={link.title}>
+                <h3 style={styles.cardTitle}>{link.title}</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  {link.links.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      style={styles.knowMore}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
             ) : (
               <div style={styles.card} key={link.title}>
                 <h3 style={styles.cardTitle}>{link.title}</h3>
@@ -65,12 +89,13 @@ export default function InformationCenter() {
                 </a>
               </div>
             )
-          )}
-        </div>
-      </section>
+          )
+          }
+        </div >
+      </section >
 
       {/* Hostel Fee Structure */}
-      <section id="hostel-fee-structure" style={styles.tableSection}>
+      < section id="hostel-fee-structure" style={styles.tableSection} >
         <h2 style={styles.tableHeading}>Hostel Fee Structure</h2>
         <div style={styles.tableWrap}>
           <table style={styles.table}>
@@ -98,10 +123,10 @@ export default function InformationCenter() {
         <p style={styles.note}>
           <strong>NB:</strong> The hostel fee structure is the same for Boys & Girls.
         </p>
-      </section>
+      </section >
 
       {/* Other Fee Structure */}
-      <section id="other-fee-structure" style={styles.tableSectionShaded}>
+      < section id="other-fee-structure" style={styles.tableSectionShaded} >
         <h2 style={styles.tableHeading}>Other Fees Collected by College</h2>
         <div style={styles.tableWrap}>
           <table style={styles.table}>
@@ -125,10 +150,10 @@ export default function InformationCenter() {
         <p style={styles.note}>
           <strong>NB:</strong> The fee structure is subject to change in accordance with the college's regulations.
         </p>
-      </section>
+      </section >
 
       {/* Uniform Fee Structure */}
-      <section id="uniform-fee-structure" style={styles.tableSection}>
+      < section id="uniform-fee-structure" style={styles.tableSection} >
         <h2 style={styles.tableHeading}>Uniform Fee Structure</h2>
         <div style={styles.tableWrap}>
           <table style={styles.table}>
@@ -156,10 +181,10 @@ export default function InformationCenter() {
         <p style={styles.note}>
           <strong>NB:</strong> The uniform fee structure is the same for both B-Pharm and D-Pharm students.
         </p>
-      </section>
+      </section >
 
       {/* Release of Original Documents */}
-      <section id="release-of-documents" style={styles.tableSectionShaded}>
+      < section id="release-of-documents" style={styles.tableSectionShaded} >
         <h2 style={styles.tableHeading}>Rule – Release of Original Documents</h2>
 
         <h3 style={styles.subHeading}>Students Continuing the Course</h3>
@@ -192,8 +217,8 @@ export default function InformationCenter() {
           based on their academic status and their decision to continue or
           discontinue the course.
         </p>
-      </section>
-    </div>
+      </section >
+    </div >
   );
 }
 
