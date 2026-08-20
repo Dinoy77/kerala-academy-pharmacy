@@ -21,6 +21,7 @@ const infoLinks = [
     multi: true,
     links: [
       { label: "B-Pharm Sem 2 Exam Notification", href: "/documents/BPHARM_SEM2_EXAM_NOTIFICATION.pdf" },
+      { label: "B-Pharm Sem 2 Degree R/S Examinations", href: "/documents/BPHARM_SEM2_RS_EXAM_NOTIFICATION.pdf" },
       { label: "D-Pharm Exam Notification", href: "/documents/EXAM_NOTIFICATION.pdf" },
     ],
   },
