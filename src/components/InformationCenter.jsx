@@ -22,6 +22,7 @@ const infoLinks = [
     links: [
       { label: "B-Pharm Sem 2 Exam Notification", href: "/documents/BPHARM_SEM2_EXAM_NOTIFICATION.pdf" },
       { label: "B-Pharm Sem 2 Degree R/S Examinations", href: "/documents/BPHARM_SEM2_RS_EXAM_NOTIFICATION.pdf" },
+      { label: "Sem 4 2nd Sessional & Re-sessional Exam", href: "/documents/SEM4_2ND_SESSIONAL_RESESSIONAL_EXAM.pdf" },
       { label: "D-Pharm Exam Notification", href: "/documents/EXAM_NOTIFICATION.pdf" },
     ],
   },
