@@ -149,7 +149,7 @@ export default function Footer() {
           </p>
           <p style={styles.contactLine}>info@kap.ac.in</p>
           <p style={styles.contactLine}>+91-8951220590</p>
-          <p style={styles.contactLine}>+91-7736952425</p>
+          <p style={styles.contactLine}>+91-7736952425 (Admission Helpline)</p>
           <p style={styles.contactLine}>
             +91-9567508816
             <br />
