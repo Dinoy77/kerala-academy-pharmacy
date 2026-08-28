@@ -126,7 +126,7 @@ export default function Apply() {
 
   return (
     <div style={styles.page}>
-      <div style={styles.feeBox}>Application Fee: ₹800</div>
+      <div style={styles.feeBox}>Application Fee: ₹1000</div>
 
       <h1 style={styles.heading}>Application For B-Pharm & D-Pharm</h1>
       <p style={styles.subheading}>
