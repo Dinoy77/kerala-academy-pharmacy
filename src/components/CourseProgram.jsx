@@ -45,7 +45,7 @@ export default function CourseProgram({ title, heroImage, navItems, sections }) 
                 {n.label}
               </a>
             ))}
-            <Link to="/apply" style={styles.applyBtn}>
+            <Link to="/registration" style={styles.applyBtn}>
               Apply Now
             </Link>
           </div>

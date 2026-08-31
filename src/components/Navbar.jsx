@@ -507,7 +507,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <Link to="/apply" className="navbar-cta navbar-cta-desktop">
+          <Link to="/registration" className="navbar-cta navbar-cta-desktop">
             Apply Now
           </Link>
 
@@ -603,7 +603,7 @@ export default function Navbar() {
           )
         )}
         <Link
-          to="/apply"
+          to="/registration"
           className="navbar-cta mobile-cta"
           onClick={() => setOpen(false)}
         >

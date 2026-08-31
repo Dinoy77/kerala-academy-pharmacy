@@ -158,7 +158,7 @@ function App() {
         <Route path="/career-openings" element={<CareerOpenings />} />
         <Route path="/pharmacy" element={<Pharmacy />} />
         <Route path="/faq" element={<Faq />} />
-        <Route path="/apply" element={<Apply />} />
+        <Route path="/registration" element={<Apply />} />
 
         {/* New routes for footer links */}
         <Route path="/b-pharm" element={<Placeholder title="B Pharmacy" />} />

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function HeroSection({ styles, isMobile, videoRef, muted, toggleMute }) {
- 
+
   return (
     <section style={styles.hero}>
 
@@ -78,7 +78,7 @@ export default function HeroSection({ styles, isMobile, videoRef, muted, toggleM
 
           {/* Action Buttons */}
           <div style={styles.heroActions}>
-            <Link to="/apply" className="kap-btn-primary" style={styles.btnPrimary}>
+            <Link to="/registration" className="kap-btn-primary" style={styles.btnPrimary}>
               Apply now <span style={{ transition: "transform 0.2s ease" }}>→</span>
             </Link>
             <Link to="/academics" className="kap-btn-outline" style={styles.btnOutline}>
