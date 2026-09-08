@@ -174,6 +174,21 @@ export default function Events() {
       </section>
 
       <GallerySection heading="Onam Celebration 2026 — A Festival of Colors & Culture" images={onam2026} styles={styles} onImageClick={openLightbox} shaded />
+      <section style={styles.section}>
+        <div style={styles.sectionInner}>
+          <h2 style={styles.sectionHeading}>Onam Celebration 2026 — Highlights Video</h2>
+          <div style={styles.shortVideoWrap}>
+            <iframe
+              src="https://www.youtube.com/embed/tf7qB8r8VrQ"
+              title="Onam Celebration 2026 Highlights"
+              style={styles.video}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </section>
       <GallerySection heading="Onam Celebrations" images={onam} styles={styles} onImageClick={openLightbox} />
       <GallerySection heading="Christmas Celebrations" images={christmas} styles={styles} onImageClick={openLightbox} />
       <GallerySection heading="Other Celebrations" images={otherCelebrations} styles={styles} onImageClick={openLightbox} shaded />
@@ -334,6 +349,15 @@ const getStyles = (isMobile) => ({
     borderRadius: "10px",
     overflow: "hidden",
     boxShadow: "0 8px 24px rgba(58,20,24,0.1)",
+  },
+  shortVideoWrap: {
+    position: "relative",
+    width: isMobile ? "220px" : "280px",
+    paddingTop: isMobile ? "391px" : "498px", // 9:16 ratio matching the width above
+    borderRadius: "10px",
+    overflow: "hidden",
+    boxShadow: "0 8px 24px rgba(58,20,24,0.1)",
+    margin: "0 auto",
   },
   video: {
     position: "absolute",
