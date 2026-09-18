@@ -19,7 +19,6 @@ export default function OnlineAdmission() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    kapId: "",
     course: "",
     name: "",
     mobile: "",
@@ -34,9 +33,6 @@ export default function OnlineAdmission() {
   const validate = () => {
     const newErrors = {};
 
-    if (!form.kapId.trim() || !/^[A-Za-z0-9]+$/.test(form.kapId)) {
-      newErrors.kapId = "KAP ID must contain only letters and numbers.";
-    }
     if (!form.course) {
       newErrors.course = "Please select a course.";
     }
@@ -68,17 +64,6 @@ export default function OnlineAdmission() {
         <p style={styles.subheading}>Fill all the details and pay application fee</p>
 
         <form onSubmit={handleNext} style={styles.form}>
-          <Field label="KAP ID" error={errors.kapId}>
-            <input
-              type="text"
-              name="kapId"
-              placeholder="Enter your KAP ID"
-              value={form.kapId}
-              onChange={handleChange}
-              style={styles.input}
-            />
-          </Field>
-
           <Field label="Select Course" error={errors.course}>
             <select
               name="course"
