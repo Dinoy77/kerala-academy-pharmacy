@@ -33,6 +33,7 @@ export default function MPharm() {
       heroImage="/assets/images/lateralentry.png"
       navItems={navItems}
       sections={sections}
+      applyLink="/lateral-entry-apply"
     />
   );
 }

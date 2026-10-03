@@ -21,7 +21,7 @@ function useResponsive() {
  * @param {Array} navItems - [{ id, label }] for the quick-jump sidebar
  * @param {Array} sections - [{ id, heading, paragraphs?, list?, table? }]
  */
-export default function CourseProgram({ title, heroImage, navItems, sections }) {
+export default function CourseProgram({ title, heroImage, navItems, sections, applyLink = "/registration" }) {
   const isMobile = useResponsive();
   const styles = getStyles(isMobile);
 
@@ -45,7 +45,7 @@ export default function CourseProgram({ title, heroImage, navItems, sections }) 
                 {n.label}
               </a>
             ))}
-            <Link to="/registration" style={styles.applyBtn}>
+            <Link to={applyLink} style={styles.applyBtn}>
               Apply Now
             </Link>
           </div>

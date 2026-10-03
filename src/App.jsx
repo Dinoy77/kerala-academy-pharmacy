@@ -27,6 +27,7 @@ import Contact from "./components/Contact";
 import CareerOpenings from "./components/CareerOpenings";
 import Faq from "./components/Faq";
 import Apply from "./components/Apply";
+import LateralEntryApply from "./components/LateralEntryApply";
 import OnlineAdmission from "./components/OnlineAdmission";
 import OnlinePayment from "./components/OnlinePayment";
 import FloatingButtons from "./components/FloatingButtons";
@@ -159,6 +160,7 @@ function App() {
         <Route path="/pharmacy" element={<Pharmacy />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/registration" element={<Apply />} />
+        <Route path="/lateral-entry-apply" element={<LateralEntryApply />} />
 
         {/* New routes for footer links */}
         <Route path="/b-pharm" element={<Placeholder title="B Pharmacy" />} />
