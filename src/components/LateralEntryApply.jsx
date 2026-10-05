@@ -27,7 +27,7 @@ export default function LateralEntryApply() {
 
   return (
     <div style={styles.page}>
-      <div style={styles.feeBox}>Application Fee: ₹800</div>
+      <div style={styles.feeBox}>Application Fee: ₹1000</div>
 
       <h1 style={styles.heading}>B-Pharm Lateral Entry Application</h1>
       <p style={styles.subheading}>
