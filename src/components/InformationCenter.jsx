@@ -24,6 +24,7 @@ const infoLinks = [
       { label: "B-Pharm Sem 2 Degree R/S Examinations", href: "/documents/BPHARM_SEM2_RS_EXAM_NOTIFICATION.pdf" },
       { label: "Sem 4 2nd Sessional & Re-sessional Exam", href: "/documents/SEM4_2ND_SESSIONAL_RESESSIONAL_EXAM.pdf" },
       { label: "D-Pharm Exam Notification", href: "/documents/EXAM_NOTIFICATION.pdf" },
+      { label: "D-Pharm 2nd Year 3rd Sessional Exam", href: "/documents/DPHARM_2ND_YEAR_3RD_SESSIONAL.jpg" },
     ],
   },
   { title: "University Results", href: "#university-results" },
